@@ -1,14 +1,14 @@
 cabal-version: 3.0
 name:
-  hevm
+  kalecky-spec
 version:
-  0.58.0
+  0.1.0
 synopsis:
-  Symbolic EVM Evaluator
+  neo-kaleckian economic model with EVM execution 
 description:
-  Symbolic EVM semantics in Haskell.
+  neo-kaleckian economic model with EVM execution .
 homepage:
-  https://github.com/argotorg/hevm
+  https://github.com/JMSBPP/kalecky-semantics/kalecky-spec/
 license:
   AGPL-3.0-only
 author:
@@ -47,7 +47,7 @@ flag debug
 
 source-repository head
   type:     git
-  location: https://github.com/argotorg/hevm.git
+  location: https://github.com/JMSBPP/kalecky-semantics.git
 
 common shared
   if flag(ci)
@@ -214,7 +214,7 @@ executable hevm
     data-dword,
     directory                         >= 1.3.6 && < 1.4,
     filepath,
-    hevm,
+    kalecky-spec,
     jsonl                             >= 0.2.0.0 && < 0.3.0.0,
     optparse-generic,
     optparse-applicative              >= 0.18.0.0 && < 0.20.0.0,
@@ -245,7 +245,7 @@ common test-base
     bytestring,
     filemanip,
     filepath,
-    hevm,
+    kalecky-spec,
     mtl,
     process,
     tasty,
@@ -340,7 +340,7 @@ test-suite cli-test
   build-depends:
     base,
     here,
-    hevm,
+    kalecky-spec,
     hspec,
     process,
     bytestring,
@@ -359,7 +359,7 @@ test-suite forge-symbolic-tests
     ForgeSymbolicTestSuite.hs
   build-depends:
     base,
-    hevm,
+    kalecky-spec,
     directory,
     filepath,
     process,
@@ -390,7 +390,7 @@ benchmark bench
     tasty,
     bytestring,
     text,
-    hevm,
+    kalecky-spec,
     test-utils,
     containers,
     unliftio-core
@@ -413,7 +413,7 @@ benchmark bench-perf
   build-depends:
     base,
     here,
-    hevm,
+    kalecky-spec,
     mtl,
     tasty-bench,
     test-utils,
