@@ -11,7 +11,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: All core project sources (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are tracked in git so every increment lands as a reviewable commit
+- [x] **INFRA-01**: All core project sources (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are tracked in git so every increment lands as a reviewable commit
 - [ ] **INFRA-02**: `Kalecky.*` modules build as a dedicated cabal component with its own test-suite, compilable and testable without rebuilding hevm's main library
 
 ### Units (dimensional foundation)
@@ -91,7 +91,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | In Progress (verifier checks 1/2 GREEN as of 01-03 — all six core paths tracked, `lib/forge-std` and `lib/plank-foundry-deployer` converted to pinned submodules with no dangling gitlinks; check 4 still RED — `lib/plank-monorepo` untracked, turns fully GREEN by 01-05) |
+| INFRA-01 | Phase 1 | Complete (01-05 — `./scripts/verify-repo-state.sh` exits 0, prints `INFRA-01: PASS`; all five checks green including the new remappings.txt resolution check; user approved the resulting git history shape) |
 | INFRA-02 | Phase 1 | Pending |
 | UNIT-01 | Phase 2 | Pending |
 | UNIT-02 | Phase 2 | Pending |
