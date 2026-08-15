@@ -1,4 +1,4 @@
-import Kalecky.types.Units.Unit
+import Kalecky.Types.Units.Unit
 
 -- todo: This needs syntax for a derivation rule
 

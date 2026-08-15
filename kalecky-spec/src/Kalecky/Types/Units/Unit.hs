@@ -1,4 +1,4 @@
-import Kalecky.Types.Numerics.Scale
+import Kalecky.Types.Numerics (Scale)
 
 
 

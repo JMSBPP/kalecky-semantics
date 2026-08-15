@@ -1,5 +1,5 @@
-import Kalecky.types.Units.CompoundUnit
-import Kalecky.types.Valuation
+import Kalecky.Types.Units.CompoundUnit
+import Kalecky.Types.Valuation
 
 
 -- \(p (u,v) := cp(u,v)\)

@@ -1,3 +1,3 @@
-import Kalecky.types.Measure
-import Kalecky.types.Unit
+import Kalecky.Types.Measure
+import Kalecky.Types.Units.Unit
 -- \(\mathbb{E}^{\mu}\)
