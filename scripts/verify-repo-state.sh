@@ -57,6 +57,17 @@ else
   echo "ok:   no untracked paths (except deferred .github/)"
 fi
 
+echo "== 5. remappings.txt targets resolve =="
+while IFS='=' read -r alias target; do
+  [ -n "$target" ] || continue
+  if [ -e "$target" ]; then
+    echo "ok:   $alias -> $target"
+  else
+    echo "FAIL: remapping '$alias' points at missing path '$target'"
+    fail=1
+  fi
+done < remappings.txt
+
 if [ "$fail" -eq 0 ]; then
   echo "INFRA-01: PASS"
 else
