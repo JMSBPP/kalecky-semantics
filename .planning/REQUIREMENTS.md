@@ -91,7 +91,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | In Progress (verifier scaffolded in 01-01, RED; turns GREEN by 01-05) |
+| INFRA-01 | Phase 1 | In Progress (verifier check 1 GREEN as of 01-02 — all six core paths tracked; checks 3/4 still RED pending `lib/` submodule conversion, turns fully GREEN by 01-05) |
 | INFRA-02 | Phase 1 | Pending |
 | UNIT-01 | Phase 2 | Pending |
 | UNIT-02 | Phase 2 | Pending |
