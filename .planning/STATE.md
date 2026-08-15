@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-08-15T23:01:31.802Z"
-last_activity: "2026-08-15 — 01-02 executed: kalecky-spec/.git absorbed as 4-commit bisectable history; kalecky-plank/, notes/, test/, foundry.toml, remappings.txt all tracked"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-08-15T23:12:44.020Z"
+last_activity: "2026-08-15 — 01-03 executed: lib/forge-std and lib/plank-foundry-deployer converted to git submodules pinned at research-verified, re-checked commits"
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 6
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State
@@ -26,28 +26,28 @@ See: .planning/PROJECT.md (updated 2026-08-15)
 ## Current Position
 
 Phase: 1 of 6 (Project Hygiene & Build Isolation)
-Plan: 2 of 6 complete (01-01, 01-02 done; 01-03 next)
+Plan: 3 of 6 complete (01-01, 01-02, 01-03 done; 01-04 next)
 Status: Ready to execute
-Last activity: 2026-08-15 — 01-02 executed: kalecky-spec/.git absorbed as 4-commit bisectable history; kalecky-plank/, notes/, test/, foundry.toml, remappings.txt all tracked
+Last activity: 2026-08-15 — 01-03 executed: lib/forge-std and lib/plank-foundry-deployer converted to git submodules pinned at research-verified, re-checked commits
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: ~9.5 min
-- Total execution time: 0.32 hours
+- Total plans completed: 3
+- Average duration: ~9.7 min
+- Total execution time: 0.48 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Project Hygiene & Build Isolation | 2/6 | ~19min | ~9.5min |
+| 1. Project Hygiene & Build Isolation | 3/6 | ~29min | ~9.7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (~15 min), 01-02 (~4 min)
-- Trend: Speeding up (01-02 was a well-scoped git-hygiene mechanical execution)
+- Last 5 plans: 01-01 (~15 min), 01-02 (~4 min), 01-03 (~10 min)
+- Trend: 01-03 took longer than 01-02 due to live byte-identity re-verification against two upstream GitHub clones plus root-causing and documenting a genuine bug in scripts/verify-repo-state.sh; still well below 01-01's baseline
 
 *Updated after each plan completion*
 
@@ -65,6 +65,8 @@ Recent decisions affecting current work:
 - 01-01: INFRA-01 is NOT yet satisfied — `scripts/verify-repo-state.sh` correctly reports FAIL today; core paths (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are still untracked and land in Plan 02; the requirement stays unchecked in REQUIREMENTS.md until the verifier reports PASS (expected by Plan 05)
 - 01-02: `kalecky-spec/.git` absorbed via `rm -r` (not `-rf`, blocked by the sandbox classifier) then a 4-commit bisectable history: vendor hevm import (171 files) → package identity (`kalecky-spec.cabal`, deletes `hevm.cabal`) → draft `src/Kalecky/**` type tree (15 uncompiled stubs) → root sources (`kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`)
 - 01-02: `scripts/verify-repo-state.sh` check 1 (tracked paths) now fully green; only `lib/` remains untracked (checks 3 and 4 still FAIL — check 3 fails for the pre-existing, out-of-scope uninitialized `EthereumTests` submodule, logged in `01-project-hygiene-build-isolation/deferred-items.md`)
+- 01-03: `lib/forge-std` (pinned `467ffd422ca01fed5797a4c766a1e4e3a5327902`) and `lib/plank-foundry-deployer` (pinned `24fe42f1021f956838504fcad40a90f45e8ee218`) converted to git submodules; both research-pinned SHAs re-verified byte-identical live via `diff -rq --exclude=.git` before deletion and again after conversion — no fallback to HEAD was needed for either; `remappings.txt` untouched; `lib/plank-monorepo` (confirmed drift) remains for Plans 04-05
+- 01-03: Discovered (not fixed — out of `files_modified` scope) a real bug in `scripts/verify-repo-state.sh` check 3: `set -o pipefail` + `grep -q`'s early-exit-on-match causes SIGPIPE on `git submodule status --recursive`, producing a false-negative "ok" that masks any uninitialized submodule as long as another one is already initialized; logged with root-cause and fix suggestion in `deferred-items.md`. True submodule init state was verified independently via `git submodule status <path>` per-submodule instead
 
 ### Pending Todos
 
@@ -77,10 +79,11 @@ None yet.
 [Issues that affect future work]
 
 - Phase 3 (GrowthRate self-composition, Tasa→Tasa ambiguity: `Gap (GrowthRate x)` vs `GrowthRate (GrowthRate x)`) needs resolution via co-designed test, not assumed from notes prose — carried into Phase 5's CASO PRUEBA scenario as well
-- `EthereumTests` submodule (pre-existing, declared in `.gitmodules` since before Phase 1) remains uninitialized; out of scope for 01-01/01-02, tracked in `.planning/phases/01-project-hygiene-build-isolation/deferred-items.md` for whoever picks up the Plans 03-05 submodule work
+- `EthereumTests` submodule (pre-existing, declared in `.gitmodules` since before Phase 1) remains uninitialized; out of scope for 01-01/01-02/01-03, tracked in `.planning/phases/01-project-hygiene-build-isolation/deferred-items.md` for whoever picks up the Plans 04-05 `lib/plank-monorepo` work
+- `scripts/verify-repo-state.sh` check 3 has a pipefail/SIGPIPE false-negative bug (see `deferred-items.md`); whoever runs the oracle for Plans 04-05's `lib/plank-monorepo` conversion should verify submodule init state directly via `git submodule status <path>` rather than trusting check 3's "ok" alone
 
 ## Session Continuity
 
-Last session: 2026-08-15T23:00:35Z
-Stopped at: Completed 01-02-PLAN.md
-Resume file: .planning/phases/01-project-hygiene-build-isolation/01-03-PLAN.md
+Last session: 2026-08-15T23:12:44.018Z
+Stopped at: Completed 01-03-PLAN.md
+Resume file: .planning/phases/01-project-hygiene-build-isolation/01-04-PLAN.md
