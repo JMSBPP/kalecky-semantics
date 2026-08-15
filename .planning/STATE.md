@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-05-PLAN.md
-last_updated: "2026-08-15T23:39:03Z"
-last_activity: "2026-08-15 — 01-05 executed: lib/plank-monorepo pinned as a submodule at 3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99 (option-a); verify-repo-state.sh extended with a remappings.txt resolution check; INFRA-01: PASS (exit 0); user approved Phase 1 history shape at the Task 3 checkpoint"
+stopped_at: Completed 01-06-PLAN.md
+last_updated: "2026-08-15T23:48:04Z"
+last_activity: "2026-08-15 — 01-06 executed: src/Kalecky/types renamed to Types with import hygiene fixed; isolated library kalecky + test-suite kalecky-test cabal stanzas added via TDD (RED stub then GREEN b^i implementation); cabal.project pinned to ghc-9.8.4; build isolation proven three ways (clean dry-run, touch-hevm-no-rebuild, negative-control touch-Smoke-does-rebuild) and recorded in 01-VALIDATION.md; INFRA-02 complete — Phase 1 fully satisfied"
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_plans: 6
+  percent: 100
 ---
 
 # Project State
@@ -25,29 +25,29 @@ See: .planning/PROJECT.md (updated 2026-08-15)
 
 ## Current Position
 
-Phase: 1 of 6 (Project Hygiene & Build Isolation)
-Plan: 5 of 6 complete (01-01, 01-02, 01-03, 01-04, 01-05 done; 01-06 next)
-Status: Ready to execute
-Last activity: 2026-08-15 — 01-05 executed: lib/plank-monorepo pinned as a submodule at 3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99 (option-a); verify-repo-state.sh extended with a remappings.txt resolution check; INFRA-01: PASS (exit 0); user approved Phase 1 history shape at the Task 3 checkpoint
+Phase: 1 of 6 (Project Hygiene & Build Isolation) — COMPLETE
+Plan: 6 of 6 complete (01-01, 01-02, 01-03, 01-04, 01-05, 01-06 done)
+Status: Phase 1 complete — ready to plan Phase 2 (Units — dimensional foundation)
+Last activity: 2026-08-15 — 01-06 executed: src/Kalecky/types renamed to Types with import hygiene fixed; isolated library kalecky + test-suite kalecky-test cabal stanzas added via TDD (RED stub then GREEN b^i implementation); cabal.project pinned to ghc-9.8.4; build isolation proven three ways and recorded in 01-VALIDATION.md; INFRA-02 complete
 
-Progress: [████████░░] 83%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: ~8.8 min
-- Total execution time: 0.73 hours
+- Total execution time: 0.88 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Project Hygiene & Build Isolation | 5/6 | ~44min | ~8.8min |
+| 1. Project Hygiene & Build Isolation | 6/6 | ~53min | ~8.8min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (~15 min), 01-02 (~4 min), 01-03 (~10 min), 01-04 (~5 min), 01-05 (~10 min)
-- Trend: 01-05 closed INFRA-01 fully — Tasks 1-2 (submodule pin + verifier extension) took ~2 min of wall-clock commit time; the checkpoint pause for Task 3's human-verify was the bulk of elapsed time, as expected for a blocking review gate
+- Last 6 plans: 01-01 (~15 min), 01-02 (~4 min), 01-03 (~10 min), 01-04 (~5 min), 01-05 (~10 min), 01-06 (~9 min)
+- Trend: 01-06 closed INFRA-02 fully and completed Phase 1 — TDD Task 2 (RED/GREEN split) plus three empirical isolation proofs in Task 3 were the bulk of the work; no checkpoints in this plan (fully autonomous)
 
 *Updated after each plan completion*
 
@@ -72,6 +72,11 @@ Recent decisions affecting current work:
 - 01-05: `scripts/verify-repo-state.sh` extended with a fifth check parsing `remappings.txt` and asserting every alias's target path resolves; proven from a clean-room recursive clone, not just the working tree — `INFRA-01: PASS`, exit 0
 - 01-05: INFRA-01 requirement is now fully satisfied and checked off in REQUIREMENTS.md
 - 01-05: User approved the Phase 1 git history shape at the Task 3 checkpoint with no reword requests — one vendor-import commit (`chore: vendor hevm fork as kalecky-spec`) precedes all Kalecky-specific work, every subject uses a conventional prefix
+- 01-06: `src/Kalecky/types` renamed to `Types` (git mv) with 8 import-path fixes across 6 files; all 15 draft files remain header-less, uncompiled design notes — Phase 2 scope not breached
+- 01-06: Isolated `library kalecky` + `test-suite kalecky-test` cabal stanzas added, inheriting `common shared` only (never `test-base`/`test-common`, which drag in the hevm main library and `Paths_hevm`); `cabal.project` pinned to `with-compiler: ghc-9.8.4`
+- 01-06: Task 2 executed as a genuine TDD RED/GREEN cycle (two commits) rather than the plan's single suggested commit — `Smoke.hs` shipped first as a deliberately wrong `scaleFactor _ _ = 0` stub (both quickcheck properties proven failing), then replaced with the plan's exact `b ^ i` implementation (both proven passing)
+- 01-06: Build isolation proven three ways and recorded verbatim in `01-VALIDATION.md`: (1) clean-state `cabal build kalecky-test --dry-run` lists only `lib:kalecky` + `test:kalecky-test`, no hevm main library or its secp256k1/aeson-optics/wreq deps; (2) touching `src/EVM.hs` triggers zero recompilation of the Kalecky suite; (3) negative control — a genuine content change (not a bare `touch`, which cabal's content-hash file-monitor ignores) to `Smoke.hs` does trigger recompilation, proving proof 2 wasn't a stale cache
+- 01-06: INFRA-02 requirement is now fully satisfied and checked off in REQUIREMENTS.md — Phase 1 (Project Hygiene & Build Isolation) is complete
 
 ### Pending Todos
 
@@ -91,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-15T23:39:03Z
-Stopped at: Completed 01-05-PLAN.md
+Last session: 2026-08-15T23:48:04Z
+Stopped at: Completed 01-06-PLAN.md
 Resume file: None

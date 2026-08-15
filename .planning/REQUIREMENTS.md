@@ -12,7 +12,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Infrastructure
 
 - [x] **INFRA-01**: All core project sources (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are tracked in git so every increment lands as a reviewable commit
-- [ ] **INFRA-02**: `Kalecky.*` modules build as a dedicated cabal component with its own test-suite, compilable and testable without rebuilding hevm's main library
+- [x] **INFRA-02**: `Kalecky.*` modules build as a dedicated cabal component with its own test-suite, compilable and testable without rebuilding hevm's main library
 
 ### Units (dimensional foundation)
 
@@ -92,7 +92,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INFRA-01 | Phase 1 | Complete (01-05 — `./scripts/verify-repo-state.sh` exits 0, prints `INFRA-01: PASS`; all five checks green including the new remappings.txt resolution check; user approved the resulting git history shape) |
-| INFRA-02 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Complete (01-06 — `cd kalecky-spec && cabal test kalecky-test` passes 2/2 properties; `cabal build kalecky-test --dry-run` from a clean state lists only `lib:kalecky` + `test:kalecky-test`, no bare hevm main library; touch-test + negative control confirm hevm source changes do not rebuild the Kalecky suite) |
 | UNIT-01 | Phase 2 | Pending |
 | UNIT-02 | Phase 2 | Pending |
 | UNIT-03 | Phase 2 | Pending |
