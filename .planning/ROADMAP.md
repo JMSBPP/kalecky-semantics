@@ -30,7 +30,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. `kalecky-spec.cabal` defines a dedicated `Kalecky.*` library and test-suite stanza, buildable and testable independently of hevm's main library
   3. Running the `Kalecky` test-suite does not trigger a full hevm rebuild
   4. Every subsequent increment lands as a reviewable git commit
-**Plans**: TBD
+**Plans**: 6 plans (sequential, waves 1-6)
+- [ ] 01-01-PLAN.md — Phase branch, artifact ignore rules, INFRA-01 repo-state verifier (RED oracle)
+- [ ] 01-02-PLAN.md — Absorb `kalecky-spec/.git`, vendor import commit, track all core sources
+- [ ] 01-03-PLAN.md — Convert `lib/forge-std` and `lib/plank-foundry-deployer` to verified pinned submodules
+- [ ] 01-04-PLAN.md — Measure `lib/plank-monorepo` upstream drift; user decision checkpoint
+- [ ] 01-05-PLAN.md — Execute the plank-monorepo decision; close the INFRA-01 gate; history legibility checkpoint
+- [ ] 01-06-PLAN.md — `Kalecky.Types` casing/import hygiene, isolated `kalecky` sublibrary + `kalecky-test` smoke suite, isolation proof
 
 ### Phase 2: Numeric & Dimensional Foundation
 **Goal**: The dimensional kernel (units + `Price`) exists so mismatched-dimension or mismatched-valuation arithmetic is a compile error, while mismatched-scale arithmetic within the same dimension auto-aligns by exact conversion — never at runtime.
@@ -95,7 +101,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Project Hygiene & Build Isolation | 0/TBD | Not started | - |
+| 1. Project Hygiene & Build Isolation | 0/6 | Planned | - |
 | 2. Numeric & Dimensional Foundation | 0/TBD | Not started | - |
 | 3. Algebraic Operators | 0/TBD | Not started | - |
 | 4. Semantic Refinements | 0/TBD | Not started | - |
