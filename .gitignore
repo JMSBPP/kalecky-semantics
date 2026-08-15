@@ -6,3 +6,24 @@ sha2/
 blake2/
 keccak256/
 out_*
+
+# --- Build artifacts (Phase 1, INFRA-01) ---
+
+# Foundry
+cache/
+out/
+broadcast/
+
+# Haskell / Cabal
+dist-newstyle/
+dist/
+*.hi
+*.o
+
+# Haskell / Stack
+.stack-work/
+**/.stack-work/
+
+# Nix
+result
+result-*
