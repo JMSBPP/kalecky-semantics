@@ -119,3 +119,9 @@ The drift is **not** local hand-edits. It is the local copy being pinned to a re
 ## Recommendation
 
 **option-a** (pin closest match, `3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99`, as a plain submodule) is favoured, with a caveat: because the match is byte-identical, there is no local delta to carry as a patch, so option-a collapses to "pin the exact matching commit" — no patch-apply step is actually needed in this case. This makes **option-a and option-d functionally identical** for `lib/plank-monorepo` specifically (unlike the general case where they'd differ), since discarding "the local delta" discards nothing. Recommend option-a's framing (explicit, updatable upstream pin) over option-d's framing (implies data was thrown away) purely for clarity of intent in the commit history, even though the resulting `git submodule add` command and pinned SHA are the same either way. option-b (vendor) is not favoured — it requires two extra fragile steps (deleting dangling gitfiles, force-adding a self-ignored tree) to avoid silently breaking `remappings.txt` line 4, with no offsetting benefit now that an exact upstream pin exists. option-c (fork) is not favoured — unnecessary network/account action when the exact upstream commit is public and pinnable directly.
+
+## Decision
+
+**Chosen:** option-a
+**Date:** 2026-08-15
+**Rationale:** Pin closest upstream commit `3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99` as a plain submodule. Since the match is byte-identical, no patch step is needed; this is a pure exact-commit pin. Rationale: explicit updatable upstream relationship, nested submodules resolve via recursive init, solady/ remapping keeps working.
