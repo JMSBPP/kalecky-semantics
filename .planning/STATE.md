@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-08-15T23:12:44.020Z"
-last_activity: "2026-08-15 — 01-03 executed: lib/forge-std and lib/plank-foundry-deployer converted to git submodules pinned at research-verified, re-checked commits"
+stopped_at: Completed 01-04-PLAN.md
+last_updated: "2026-08-15T23:24:30.994Z"
+last_activity: "2026-08-15 — 01-04 executed: lib/plank-monorepo drift measured (byte-identical to upstream 3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99); user selected option-a to pin that exact commit as a plain submodule; no conversion performed (deferred to Plan 05)"
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 6
-  completed_plans: 3
-  percent: 50
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -26,28 +26,28 @@ See: .planning/PROJECT.md (updated 2026-08-15)
 ## Current Position
 
 Phase: 1 of 6 (Project Hygiene & Build Isolation)
-Plan: 3 of 6 complete (01-01, 01-02, 01-03 done; 01-04 next)
+Plan: 4 of 6 complete (01-01, 01-02, 01-03, 01-04 done; 01-05 next)
 Status: Ready to execute
-Last activity: 2026-08-15 — 01-03 executed: lib/forge-std and lib/plank-foundry-deployer converted to git submodules pinned at research-verified, re-checked commits
+Last activity: 2026-08-15 — 01-04 executed: lib/plank-monorepo drift measured (byte-identical to upstream 3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99); user selected option-a to pin that exact commit as a plain submodule; no conversion performed (deferred to Plan 05)
 
-Progress: [█████░░░░░] 50%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: ~9.7 min
-- Total execution time: 0.48 hours
+- Total plans completed: 4
+- Average duration: ~8.5 min
+- Total execution time: 0.57 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Project Hygiene & Build Isolation | 3/6 | ~29min | ~9.7min |
+| 1. Project Hygiene & Build Isolation | 4/6 | ~34min | ~8.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (~15 min), 01-02 (~4 min), 01-03 (~10 min)
-- Trend: 01-03 took longer than 01-02 due to live byte-identity re-verification against two upstream GitHub clones plus root-causing and documenting a genuine bug in scripts/verify-repo-state.sh; still well below 01-01's baseline
+- Last 5 plans: 01-01 (~15 min), 01-02 (~4 min), 01-03 (~10 min), 01-04 (~5 min)
+- Trend: 01-04 was the fastest task-2-only continuation so far — Task 1's drift measurement (the expensive part: recursive clone, 14-candidate bisection) had already completed in the prior session; this resumed session only had to record the user's checkpoint decision
 
 *Updated after each plan completion*
 
@@ -67,6 +67,7 @@ Recent decisions affecting current work:
 - 01-02: `scripts/verify-repo-state.sh` check 1 (tracked paths) now fully green; only `lib/` remains untracked (checks 3 and 4 still FAIL — check 3 fails for the pre-existing, out-of-scope uninitialized `EthereumTests` submodule, logged in `01-project-hygiene-build-isolation/deferred-items.md`)
 - 01-03: `lib/forge-std` (pinned `467ffd422ca01fed5797a4c766a1e4e3a5327902`) and `lib/plank-foundry-deployer` (pinned `24fe42f1021f956838504fcad40a90f45e8ee218`) converted to git submodules; both research-pinned SHAs re-verified byte-identical live via `diff -rq --exclude=.git` before deletion and again after conversion — no fallback to HEAD was needed for either; `remappings.txt` untouched; `lib/plank-monorepo` (confirmed drift) remains for Plans 04-05
 - 01-03: Discovered (not fixed — out of `files_modified` scope) a real bug in `scripts/verify-repo-state.sh` check 3: `set -o pipefail` + `grep -q`'s early-exit-on-match causes SIGPIPE on `git submodule status --recursive`, producing a false-negative "ok" that masks any uninitialized submodule as long as another one is already initialized; logged with root-cause and fix suggestion in `deferred-items.md`. True submodule init state was verified independently via `git submodule status <path>` per-submodule instead
+- [Phase 01-project-hygiene-build-isolation]: 01-04: lib/plank-monorepo drift measured (byte-identical to upstream 3c4ce7bd7fd061dac883f291c6aec5d66f7a9f99); user selected option-a to pin that exact commit as a plain submodule
 
 ### Pending Todos
 
@@ -84,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-15T23:12:44.018Z
-Stopped at: Completed 01-03-PLAN.md
-Resume file: .planning/phases/01-project-hygiene-build-isolation/01-04-PLAN.md
+Last session: 2026-08-15T23:24:30.989Z
+Stopped at: Completed 01-04-PLAN.md
+Resume file: None
