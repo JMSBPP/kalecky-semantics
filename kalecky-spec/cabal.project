@@ -1,4 +1,5 @@
 packages: .
+with-compiler: ghc-9.8.4
 
 -- work around windows build failure
 -- https://github.com/kazu-yamamoto/crypton-certificate/issues/27

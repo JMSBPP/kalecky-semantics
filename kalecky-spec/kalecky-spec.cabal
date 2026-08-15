@@ -418,3 +418,30 @@ benchmark bench-perf
     tasty-bench,
     test-utils,
     utf8-string
+
+--- Kalecky (isolated from hevm's main library — see INFRA-02) ---
+
+library kalecky
+  import: shared
+  default-language: GHC2021
+  hs-source-dirs:
+    src
+  exposed-modules:
+    Kalecky.Smoke
+  build-depends:
+    base
+
+test-suite kalecky-test
+  import: shared
+  default-language: GHC2021
+  type:
+    exitcode-stdio-1.0
+  hs-source-dirs:
+    test-kalecky
+  main-is:
+    Main.hs
+  build-depends:
+    base,
+    kalecky,
+    tasty,
+    tasty-quickcheck
