@@ -10,6 +10,9 @@ module Kalecky.Smoke
   ( scaleFactor
   ) where
 
--- | RED placeholder: deliberately wrong, proves the smoke properties fail.
+-- | Scale factor @s(b, i) = b ^ i@, restricted to non-negative exponents.
+-- Negative exponents return 0 — a deliberate placeholder, not a design decision.
 scaleFactor :: Integer -> Int -> Integer
-scaleFactor _ _ = 0
+scaleFactor b i
+  | i < 0     = 0
+  | otherwise = b ^ i
