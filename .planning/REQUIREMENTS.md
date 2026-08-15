@@ -16,12 +16,14 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Units (dimensional foundation)
 
-- [ ] **UNIT-01**: Researcher can construct base units via smart constructors only — `Scale`, `Currency` (`COP` with unit `Billion | Million | Thousand`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` — hidden data constructors
-- [ ] **UNIT-02**: Researcher can compose compound units with `Per` and `Times` (e.g., `Per MoneyUnit LaborUnit` for a wage)
-- [ ] **UNIT-03**: Researcher can construct `EconomicQuantity<valuation, unit>` with Decimal-backed exact amounts and `Valuation = Nominal | Real PriceIndex` threaded through the type
-- [ ] **UNIT-04**: Adding or subtracting `EconomicQuantity` values with mismatched units or valuations fails to compile — no `Num` instance; restricted same-unit operators only
-- [ ] **UNIT-05**: Multiplying/dividing `EconomicQuantity` values produces a quantity whose unit type is correctly composed; canceling dimensions yields a dimensionless ratio
-- [ ] **UNIT-06**: Researcher can convert between scales within one unit (e.g., COP Million ↔ COP Thousand) with exact Decimal arithmetic — no rounding drift
+Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives in the Unit itself — `u_s(k) = k · s(b,i)` with `Scale s(b,i) := b^i`; there is no separate quantity wrapper. `Price p(u,v) := c_p(u,v)` is a valuation-parameterized Per-compound unit (this replaces the earlier `EconomicQuantity<valuation, unit>` design).
+
+- [ ] **UNIT-01**: Researcher can construct base vocabulary via smart constructors only — `Scale` (`s(b,i) = b^i`), `MoneyUnit`/`Currency` (`COP`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` — hidden data constructors; a `Unit u_s(k)` carries its Decimal-backed amount `k` at scale `s`
+- [ ] **UNIT-02**: Units compose as a semigroup under `(·)`; `CompoundUnit` connectors `Per` (ρ: ratio) and `Times` (τ: tensor) compose two units, auto-aligning mismatched scales by exact conversion to a common scale (the `s = h` derivation rule)
+- [ ] **UNIT-03**: Researcher can construct `Price p(u,v)` as a valuation-parameterized `Per`-compound unit with `Valuation = Nominal | Real PriceIndex` threaded through the type
+- [ ] **UNIT-04**: Adding or subtracting units or prices with mismatched dimensions or valuations fails to compile — no `Num` instance; restricted same-dimension operators only
+- [ ] **UNIT-05**: `Per`/`Times` composition produces a correctly composed unit type; canceling dimensions yields a dimensionless ratio
+- [ ] **UNIT-06**: Scale conversion within one unit (e.g., COP Million ↔ COP Thousand via `b^i` exponents) is exact with Decimal arithmetic — no rounding drift
 
 ### Algebraic operators
 
@@ -29,7 +31,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 - [ ] **ALG-02**: `Gap` is generic over any `x` admitting subtraction — it knows no economics and imports no domain modules
 - [ ] **ALG-03**: `Expectation agent x` with `Agent = Household | Firm | Government | FinancialSector`; `E^H[x]` and `E^F[x]` are distinct types for the same `x`
 - [ ] **ALG-04**: `Effect responder perturband` is a newtype over `Number` encoding ∂responder/∂perturband — no extra runtime data
-- [ ] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x of an `EconomicQuantity`
+- [ ] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x of an amount-carrying `Unit` or `Price`
 - [ ] **ALG-06**: `mkCommonGrowthRate` returns `Maybe (CommonGrowthRate a b)` — `Just` only when the two growth rates share a common base
 
 ### Semantic refinements (equation slice)
@@ -40,8 +42,8 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Domain instances
 
-- [ ] **DOM-01**: `NominalWage :: EconomicQuantity Nominal (Per MoneyUnit LaborUnit)` — money per labor, not a price index
-- [ ] **DOM-02**: `RealWage` is `NominalWage` deflated by `PriceLevel`, with valuation `Real`
+- [ ] **DOM-01**: `Wage` is a `Price` over `Per MoneyUnit LaborUnit`; `NominalWage` is a `Wage` with `Nominal` valuation — money per labor, not a price index
+- [ ] **DOM-02**: `RealWage` is the `Wage` with valuation `Real PriceIndex` — `NominalWage` deflated by `PriceLevel`
 - [ ] **DOM-03**: `LaborProductivity` is `Ratio Output LaborService` with `GrowthRate` definable on it
 - [ ] **DOM-04**: Household and firm real-wage expectation gap constructors produce `Gap RealWage` values with opposite orientations
 
@@ -89,13 +91,38 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmap) | | |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| UNIT-01 | Phase 2 | Pending |
+| UNIT-02 | Phase 2 | Pending |
+| UNIT-03 | Phase 2 | Pending |
+| UNIT-04 | Phase 2 | Pending |
+| UNIT-05 | Phase 2 | Pending |
+| UNIT-06 | Phase 2 | Pending |
+| PROOF-01 | Phase 2 | Pending |
+| ALG-01 | Phase 3 | Pending |
+| ALG-02 | Phase 3 | Pending |
+| ALG-03 | Phase 3 | Pending |
+| ALG-04 | Phase 3 | Pending |
+| ALG-05 | Phase 3 | Pending |
+| ALG-06 | Phase 3 | Pending |
+| SEM-01 | Phase 4 | Pending |
+| SEM-02 | Phase 4 | Pending |
+| SEM-03 | Phase 4 | Pending |
+| DOM-01 | Phase 5 | Pending |
+| DOM-02 | Phase 5 | Pending |
+| DOM-03 | Phase 5 | Pending |
+| DOM-04 | Phase 5 | Pending |
+| PROOF-02 | Phase 5 | Pending |
+| PROOF-03 | Phase 5 | Pending |
+| PROOF-04 | Phase 5 | Pending |
+| PROOF-05 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 26 total
-- Mapped to phases: 0
-- Unmapped: 26 ⚠️
+- Mapped to phases: 26
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-08-15*
-*Last updated: 2026-08-15 after initial definition*
+*Last updated: 2026-08-15 after roadmap creation (6 phases, full coverage)*

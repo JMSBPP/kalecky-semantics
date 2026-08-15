@@ -36,8 +36,8 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 
 <!-- One type per increment; each increment = test co-designed with user, approved, then implemented -->
 
-- [ ] Dimensional foundation types: Scale, Valuation (Nominal | Real PriceIndex), MoneyUnit/Currency (COP, USD), LaborUnit (Worker, LaborHour), TimeUnit, CompoundUnit (Per, Times)
-- [ ] EconomicQuantity<valuation, unit> with dimensional correctness enforced by types (e.g., NominalWage :: EconomicQuantity Nominal (Per MoneyUnit LaborUnit))
+- [ ] Dimensional foundation types: Scale (s(b,i) = b^i), Valuation (Nominal | Real PriceIndex), MoneyUnit/Currency (COP, USD), LaborUnit (Worker, LaborHour), TimeUnit; a Unit u_s(k) carries its amount k at scale s and units form a semigroup under (·)
+- [ ] CompoundUnit connectors Per (ρ) and Times (τ) with scale alignment by exact conversion; Price p(u,v) as valuation-parameterized Per-compound unit (replaces the earlier EconomicQuantity design; e.g., NominalWage is a Nominal-valued Price over Per MoneyUnit LaborUnit)
 - [ ] Gap x — orientation-preserving algebraic difference (positiveTerm/negativeTerm), requires subtraction in x
 - [ ] Expectation agent x with Agent (Household | Firm | Government | FinancialSector) — E^H[W/P], E^F[W/P]
 - [ ] Conflict as semantic refinement of Gap: ExpectationsConflict agentA agentB x, DistributionalConflict, BargainingConflict
@@ -84,6 +84,7 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 | End goal = boxed wage-growth equation | Explicitly marked in notes/INCOME_DISTRIBUTION.md as "the end goal test" | — Pending |
 | Gap preserves orientation (positiveTerm/negativeTerm) | a − b ≠ b − a; household vs firm gaps have opposite orientation | — Pending |
 | Effect is a newtype over Number; refinements add semantics not data | Avoids redundant scalars (ResponseMultiplier, Indexation store only the Effect) | — Pending |
+| EconomicQuantity replaced by Price (amount lives in Unit; Price = valued Per-compound unit) | Tree notes in kalecky-spec/src/Kalecky/types/**: u_s(k) = k·s(b,i), Price p(u,v) := c_p(u,v); scale alignment by exact conversion, not rejection | — Pending |
 
 ---
 *Last updated: 2026-08-15 after initialization*
