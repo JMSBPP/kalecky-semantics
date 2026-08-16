@@ -64,4 +64,8 @@ moneyUnit ::
   Denomination ->
   Natural ->
   Maybe (Unit (MoneyBasis c))
-moneyUnit = undefined
+moneyUnit d k = do
+  base <- tradeableBase (currencyOf (Proxy :: Proxy c))
+  if (k * scaleFactor (denominationScale d)) `mod` base == 0
+    then Just (unit (MoneyBasis d :: MoneyBasis c) k)
+    else Nothing

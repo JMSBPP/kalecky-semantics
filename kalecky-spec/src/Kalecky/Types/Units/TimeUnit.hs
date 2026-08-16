@@ -20,7 +20,7 @@ data TimeBasis = Hour | Month
 -- 2026-08-15); @MONTH_BASE = 2592000@ (seconds in a 30-day month).
 timeScale :: TimeBasis -> Scale
 timeScale b = case b of
-  Hour -> undefined
+  Hour -> known 3600
   Month -> known 2592000
   where
     known n = case scale n 1 of

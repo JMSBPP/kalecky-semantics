@@ -22,7 +22,9 @@ data Currency = COP | USD
 -- | Smallest tradable increment, in raw currency units.
 -- @COP -> Just 50@ (Draft.plk); @USD -> Nothing@ (deferred).
 tradeableBase :: Currency -> Maybe Natural
-tradeableBase = undefined
+tradeableBase = \case
+  COP -> Just 50
+  USD -> Nothing
 
 -- | Singleton bridge from the type-level currency tag to its value.
 class KnownCurrency (c :: Currency) where
