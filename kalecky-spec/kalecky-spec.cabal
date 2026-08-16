@@ -427,6 +427,7 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
+    Kalecky.Operators.Delta
     Kalecky.Operators.Expectation
     Kalecky.Operators.Gap
     Kalecky.Types.Currency
@@ -453,6 +454,7 @@ test-suite kalecky-test
   main-is:
     Main.hs
   other-modules:
+    Kalecky.Operators.DeltaSpec
     Kalecky.Operators.ExpectationSpec
     Kalecky.Operators.GapSpec
     Kalecky.Types.NumericsSpec

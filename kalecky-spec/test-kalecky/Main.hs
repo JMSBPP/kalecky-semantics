@@ -2,6 +2,7 @@ module Main (main) where
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
+import Kalecky.Operators.DeltaSpec (deltaTests)
 import Kalecky.Operators.ExpectationSpec (expectationTests)
 import Kalecky.Operators.GapSpec (gapTests)
 import Kalecky.Types.NumericsSpec (scaleTests)
@@ -29,4 +30,5 @@ tests =
     , priceTests
     , expectationTests
     , gapTests
+    , deltaTests
     ]
