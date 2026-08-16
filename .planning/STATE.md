@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: planning
 stopped_at: Phase 3 context gathered (Gap=expectation-vs-realized; Delta added)
-last_updated: "2026-08-16T13:38:22.435Z"
+last_updated: "2026-08-16T13:49:04.801Z"
 last_activity: "2026-08-15 — 01-06 executed: src/Kalecky/types renamed to Types with import hygiene fixed; isolated library kalecky + test-suite kalecky-test cabal stanzas added via TDD (RED stub then GREEN b^i implementation); cabal.project pinned to ghc-9.8.4; build isolation proven three ways and recorded in 01-VALIDATION.md; INFRA-02 complete"
 progress:
   total_phases: 6
-  completed_phases: 4
-  total_plans: 9
-  completed_plans: 9
+  completed_phases: 5
+  total_plans: 10
+  completed_plans: 10
   percent: 100
 ---
 
