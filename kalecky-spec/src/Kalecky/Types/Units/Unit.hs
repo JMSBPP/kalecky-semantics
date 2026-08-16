@@ -38,11 +38,11 @@ data Unit basis = Unit Natural Scale
 
 -- | The amount @k@ of @u_s(k)@.
 qty :: Unit basis -> Natural
-qty = undefined
+qty (Unit k _) = k
 
 -- | The scale @s@ of @u_s(k)@.
 unitScale :: Unit basis -> Scale
-unitScale = undefined
+unitScale (Unit _ s) = s
 
 -- | Bases whose scale comes from a per-basis scale function.
 class HasScale basis where
@@ -59,8 +59,8 @@ instance HasScale TimeBasis where
 
 -- | Construct @u_{scaleOf b}(k)@ — the only way to build a 'Unit'.
 unit :: HasScale basis => basis -> Natural -> Unit basis
-unit = undefined
+unit b k = Unit k (scaleOf b)
 
 -- | \((\cdot)\): amounts multiply, scales multiply.
 instance Semigroup (Unit basis) where
-  (<>) = undefined
+  Unit k s <> Unit l h = Unit (k * l) (s <> h)

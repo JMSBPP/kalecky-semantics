@@ -32,7 +32,7 @@ newtype Scale = Scale Natural
 -- semigroup @u_s(k) · v_h(l)@). Positivity is preserved: a product of
 -- factors @>= 1@ is @>= 1@.
 instance Semigroup Scale where
-  (<>) = undefined
+  Scale a <> Scale b = Scale (a * b)
 
 -- | Extract the Natural multiplier of a 'Scale'.
 scaleFactor :: Scale -> Natural
