@@ -33,10 +33,15 @@ price = Price
 
 -- | The underlying unit ratio.
 priceRatio :: Price v a b -> Per a b
-priceRatio = undefined
+priceRatio (Price p) = p
 
 -- | Exact rational addition: n/d + n'/d' = (n·d' + n'·d)/(d·d').
 -- The numerator combination aligns within its kind ('add'), hence
 -- Maybe — always Just for the current scale families.
 addPrice :: Price v a b -> Price v a b -> Maybe (Price v a b)
-addPrice = undefined
+addPrice (Price p) (Price q) = do
+  n <-
+    add
+      (scaleBy (value (denominator q)) (numerator p))
+      (scaleBy (value (denominator p)) (numerator q))
+  pure (Price (per n (denominator p <> denominator q)))

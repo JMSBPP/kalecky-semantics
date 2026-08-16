@@ -74,7 +74,7 @@ align u@(Unit k s) v@(Unit l h)
 -- | Scalar action: multiply the amount by a Natural, scale unchanged.
 -- Enables exact rational price addition (n/d + n'/d').
 scaleBy :: Natural -> Unit basis -> Unit basis
-scaleBy = undefined
+scaleBy n (Unit k s) = Unit (n * k) s
 
 -- | Aligned addition. Cross-kind addition is already a type error via
 -- the basis parameter; within kind, scales auto-align exactly.
