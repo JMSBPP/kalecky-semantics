@@ -29,14 +29,14 @@ newtype Effect responder perturband = Effect Rational
 
 -- | Estimated coefficients enter as exact rationals.
 effect :: Rational -> Effect r p
-effect = undefined
+effect = Effect
 
 -- | The coefficient.
 effectValue :: Effect r p -> Rational
-effectValue = undefined
+effectValue (Effect r) = r
 
 -- | Linear action: response to an evaluated perturbation
 -- (coefficient × perturbation) — the composition primitive of the
 -- wage-growth equation's additive terms.
 applyEffect :: Effect r p -> Rational -> Rational
-applyEffect = undefined
+applyEffect (Effect c) x = c * x
