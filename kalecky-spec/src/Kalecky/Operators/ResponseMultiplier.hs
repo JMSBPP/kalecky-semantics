@@ -22,11 +22,11 @@ newtype ResponseMultiplier responder perturband
   deriving (Eq, Ord, Show)
 
 responseMultiplier :: Rational -> ResponseMultiplier r p
-responseMultiplier = undefined
+responseMultiplier = ResponseMultiplier . effect
 
 responseValue :: ResponseMultiplier r p -> Rational
-responseValue = undefined
+responseValue (ResponseMultiplier e) = effectValue e
 
 -- | Response to an evaluated perturbation (delegates to 'applyEffect').
 applyResponse :: ResponseMultiplier r p -> Rational -> Rational
-applyResponse = undefined
+applyResponse (ResponseMultiplier e) = applyEffect e

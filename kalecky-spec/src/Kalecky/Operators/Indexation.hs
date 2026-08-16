@@ -30,12 +30,12 @@ newtype Indexation target reference
   deriving (Eq, Ord, Show)
 
 indexation :: Rational -> Indexation t r
-indexation = undefined
+indexation = Indexation . effect
 
 indexationDegree :: Indexation t r -> Rational
-indexationDegree = undefined
+indexationDegree (Indexation e) = effectValue e
 
 -- | The contribution of the reference's growth to the target's growth:
 -- degree × reference rate.
 applyIndexation :: Indexation t r -> GrowthRate reference -> Rational
-applyIndexation = undefined
+applyIndexation (Indexation e) r = applyEffect e (rate r)
