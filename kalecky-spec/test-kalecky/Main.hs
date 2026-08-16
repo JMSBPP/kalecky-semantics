@@ -3,6 +3,7 @@ module Main (main) where
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
 import Kalecky.Types.NumericsSpec (scaleTests)
+import Kalecky.Types.Units.CompoundUnitSpec (compoundUnitTests)
 import Kalecky.Types.Units.LaborUnitSpec (laborUnitTests)
 import Kalecky.Types.Units.MoneyUnitSpec (moneyUnitTests)
 import Kalecky.Types.Units.TimeUnitSpec (timeUnitTests)
@@ -19,4 +20,5 @@ tests =
     , moneyUnitTests
     , laborUnitTests
     , timeUnitTests
+    , compoundUnitTests
     ]

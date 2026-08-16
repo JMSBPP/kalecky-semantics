@@ -19,11 +19,14 @@ module Kalecky.Types.Units.Unit
   , unitScale
   , HasScale (..)
   , unit
+  , value
+  , align
+  , add
   ) where
 
 import Numeric.Natural (Natural)
 
-import Kalecky.Types.Numerics (Scale)
+import Kalecky.Types.Numerics (Scale, scaleFactor)
 
 -- | An amount @k@ at a scale @s@, tagged by its basis kind.
 data Unit basis = Unit Natural Scale
@@ -48,3 +51,19 @@ unit b k = Unit k (scaleOf b)
 -- | \((\cdot)\): amounts multiply, scales multiply.
 instance Semigroup (Unit basis) where
   Unit k s <> Unit l h = Unit (k * l) (s <> h)
+
+-- | The raw magnitude @qty · scaleFactor@ — the invariant alignment
+-- must preserve (UNIT-06: no rounding drift).
+value :: Unit basis -> Natural
+value = undefined
+
+-- | The @s = h@ rule, within one kind: bring both operands to the
+-- FINER scale by exact conversion (multiply only, never divide).
+-- @Just@ iff the coarser scale is an exact multiple of the finer.
+align :: Unit basis -> Unit basis -> Maybe (Unit basis, Unit basis)
+align = undefined
+
+-- | Aligned addition. Cross-kind addition is already a type error via
+-- the basis parameter; within kind, scales auto-align exactly.
+add :: Unit basis -> Unit basis -> Maybe (Unit basis)
+add = undefined
