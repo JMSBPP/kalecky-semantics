@@ -53,12 +53,12 @@ expectationsConflict ::
   Expectation a x ->
   Expectation b x ->
   ExpectationsConflict a b x
-expectationsConflict = undefined
+expectationsConflict = ExpectationsC
 
 -- | The two views, in orientation order.
 conflictViews :: ExpectationsConflict a b x -> (x, x)
-conflictViews = undefined
+conflictViews (ExpectationsC ea eb) = (expected ea, expected eb)
 
 -- | Signed exact evaluation: a's view − b's view.
 evalConflict :: SignedDiff x => Conflict k a b x -> Diff x
-evalConflict = undefined
+evalConflict (ExpectationsC ea eb) = sdiff (expected ea) (expected eb)
