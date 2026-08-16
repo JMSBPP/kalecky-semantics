@@ -430,6 +430,7 @@ library kalecky
     Kalecky.Operators.Delta
     Kalecky.Operators.Expectation
     Kalecky.Operators.Gap
+    Kalecky.Operators.GrowthRate
     Kalecky.Types.Currency
     Kalecky.Types.Measure
     Kalecky.Types.Numerics
@@ -457,6 +458,7 @@ test-suite kalecky-test
     Kalecky.Operators.DeltaSpec
     Kalecky.Operators.ExpectationSpec
     Kalecky.Operators.GapSpec
+    Kalecky.Operators.GrowthRateSpec
     Kalecky.Types.NumericsSpec
     Kalecky.Types.Prices.PriceSpec
     Kalecky.Types.ValuationSpec
