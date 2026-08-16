@@ -27,6 +27,8 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 
 <!-- Existing capabilities inferred from codebase map -->
 
+- ✓ v1.0 Wage Equation (all Active items below shipped 2026-08-16): dimensional kernel (Scale/Unit/Currency/CompoundUnit/Valuation/Price), algebraic operators (Expectation/Gap/Delta/GrowthRate/Effect), semantic refinements (Conflict family/ResponseMultiplier/Indexation), Wage vocabulary, three exact CASO PRUEBA scenarios, and the boxed wage-setting equation — 107 tests + 6 compile-fail boundaries green
+
 - ✓ hevm fork builds and executes EVM bytecode in Haskell (`kalecky-spec/`, Stack/Cabal/Nix builds, QuickCheck + Tasty test infrastructure) — existing
 - ✓ Foundry/Plank test harness runs Solidity tests against Plank-compiled contracts (`foundry.toml`, `test/kalecky-plank/`) — existing
 - ✓ Draft specification of the income distribution model with type hierarchy exists (`notes/INCOME_DISTRIBUTION.md`) — existing
@@ -66,6 +68,10 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 - Codebase map in `.planning/codebase/` documents the three-stack situation (Lean, Haskell, Plank/Rust) and its concerns — notably that core work is untracked in git and `Draft.plk` has blocking TODOs.
 - Design language: algebraic structures know no economics (Gap, Effect); semantic refinements carry the economics (Conflict, ResponseMultiplier, Indexation). This separation is what makes the library reusable for Kaldor/Minsky/fiscal work.
 
+### Current State (post v1.0)
+
+Shipped 2026-08-16: ~1,000 LOC of Kalecky Haskell source + ~1,200 LOC tests inside the `kalecky` sublibrary; `cabal test kalecky-test` (107 tests) and `scripts/check-compile-fail.sh` (6 boundaries) both green on `main` (tag v1.0). v2 backlog: RealWage/deflation, Elasticity + Distributional/Bargaining refinements, ψ distribution matrix, Plank port, hevm bridge.
+
 ## Constraints
 
 - **Process**: Test-first, collaboratively — each increment's test is co-designed with the user and approved before implementation. Not solo/YOLO work.
@@ -77,15 +83,15 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| v1 is pure Haskell; Plank/EVM/Solidity out of scope | Prove the types first; DSL/chain execution builds on a proven foundation | — Pending |
+| v1 is pure Haskell; Plank/EVM/Solidity out of scope | Prove the types first; DSL/chain execution builds on a proven foundation | ✓ Good |
 | Keep types inside kalecky-spec (hevm fork) | Preserves future bridge to hevm symbolic execution | — Pending |
 | Properties + examples per increment | QuickCheck laws for algebra (Gap orientation, dimensions) + CASO PRUEBA scenarios for economics | — Pending |
 | One type per increment | Scale → Units → EconomicQuantity → Gap → Conflict → Effect → ... each test-approved before implementation | — Pending |
-| End goal = boxed wage-growth equation | Explicitly marked in notes/INCOME_DISTRIBUTION.md as "the end goal test" | — Pending |
+| End goal = boxed wage-growth equation | Explicitly marked in notes/INCOME_DISTRIBUTION.md as "the end goal test" | ✓ Good (passes: 277/900 exact) |
 | Gap preserves orientation (positiveTerm/negativeTerm) | a − b ≠ b − a; household vs firm gaps have opposite orientation | — Pending |
 | Effect is a newtype over Number; refinements add semantics not data | Avoids redundant scalars (ResponseMultiplier, Indexation store only the Effect) | — Pending |
 | EconomicQuantity replaced by Price (amount lives in Unit; Price = valued Per-compound unit) | Tree notes in kalecky-spec/src/Kalecky/types/**: u_s(k) = k·s(b,i), Price p(u,v) := c_p(u,v); scale alignment by exact conversion, not rejection | — Pending |
-| Phases 2-6 run as live in-session co-design; GSD reduced to bookkeeping (research/plan-check/verifier/nyquist off; one lean plan per phase) | Spec already written (notes + Draft.plk); the unknowns live in the type co-design dialogue with the user, not in discovery — executor-checkpoint round-trips added ceremony without value. Phase 1's full machinery was right for infra unknowns; the type ladder doesn't need it | — Pending |
+| Phases 2-6 run as live in-session co-design; GSD reduced to bookkeeping (research/plan-check/verifier/nyquist off; one lean plan per phase) | Spec already written (notes + Draft.plk); the unknowns live in the type co-design dialogue with the user, not in discovery | ✓ Good (5 phases, 20 increments, one day) |
 
 ---
-*Last updated: 2026-08-15 after initialization*
+*Last updated: 2026-08-16 after v1.0 Wage Equation milestone*
