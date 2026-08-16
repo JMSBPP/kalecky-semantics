@@ -427,7 +427,16 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
-    Kalecky.Smoke
+    Kalecky.Types.Currency
+    Kalecky.Types.Numerics
+    Kalecky.Types.Prices.Price
+    Kalecky.Types.Prices.PriceIndex
+    Kalecky.Types.Valuation
+    Kalecky.Types.Units.CompoundUnit
+    Kalecky.Types.Units.LaborUnit
+    Kalecky.Types.Units.MoneyUnit
+    Kalecky.Types.Units.TimeUnit
+    Kalecky.Types.Units.Unit
   build-depends:
     base
 
@@ -440,8 +449,20 @@ test-suite kalecky-test
     test-kalecky
   main-is:
     Main.hs
+  other-modules:
+    Kalecky.Types.NumericsSpec
+    Kalecky.Types.Prices.PriceSpec
+    Kalecky.Types.ValuationSpec
+    Kalecky.Types.Units.CompoundUnitSpec
+    Kalecky.Types.Units.LaborUnitSpec
+    Kalecky.Types.Units.MoneyUnitSpec
+    Kalecky.Types.Units.TimeUnitSpec
+    Kalecky.Types.Units.UnitSpec
   build-depends:
     base,
     kalecky,
+    QuickCheck,
+    quickcheck-classes,
     tasty,
+    tasty-hunit,
     tasty-quickcheck

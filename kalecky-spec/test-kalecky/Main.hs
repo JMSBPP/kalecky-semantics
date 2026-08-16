@@ -1,9 +1,15 @@
 module Main (main) where
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
-import Test.Tasty.QuickCheck (testProperty, (===))
 
-import Kalecky.Smoke (scaleFactor)
+import Kalecky.Types.NumericsSpec (scaleTests)
+import Kalecky.Types.Prices.PriceSpec (priceTests)
+import Kalecky.Types.Units.CompoundUnitSpec (compoundUnitTests)
+import Kalecky.Types.ValuationSpec (valuationTests)
+import Kalecky.Types.Units.LaborUnitSpec (laborUnitTests)
+import Kalecky.Types.Units.MoneyUnitSpec (moneyUnitTests)
+import Kalecky.Types.Units.TimeUnitSpec (timeUnitTests)
+import Kalecky.Types.Units.UnitSpec (unitTests)
 
 main :: IO ()
 main = defaultMain tests
@@ -11,10 +17,12 @@ main = defaultMain tests
 tests :: TestTree
 tests =
   testGroup "kalecky"
-    [ testGroup "smoke"
-        [ testProperty "scaleFactor b 0 == 1" $
-            \(b :: Integer) -> scaleFactor b 0 === 1
-        , testProperty "scaleFactor b 1 == b" $
-            \(b :: Integer) -> scaleFactor b 1 === b
-        ]
+    [ scaleTests
+    , unitTests
+    , moneyUnitTests
+    , laborUnitTests
+    , timeUnitTests
+    , compoundUnitTests
+    , valuationTests
+    , priceTests
     ]

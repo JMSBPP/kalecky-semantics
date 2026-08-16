@@ -85,6 +85,7 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 | Gap preserves orientation (positiveTerm/negativeTerm) | a − b ≠ b − a; household vs firm gaps have opposite orientation | — Pending |
 | Effect is a newtype over Number; refinements add semantics not data | Avoids redundant scalars (ResponseMultiplier, Indexation store only the Effect) | — Pending |
 | EconomicQuantity replaced by Price (amount lives in Unit; Price = valued Per-compound unit) | Tree notes in kalecky-spec/src/Kalecky/types/**: u_s(k) = k·s(b,i), Price p(u,v) := c_p(u,v); scale alignment by exact conversion, not rejection | — Pending |
+| Phases 2-6 run as live in-session co-design; GSD reduced to bookkeeping (research/plan-check/verifier/nyquist off; one lean plan per phase) | Spec already written (notes + Draft.plk); the unknowns live in the type co-design dialogue with the user, not in discovery — executor-checkpoint round-trips added ceremony without value. Phase 1's full machinery was right for infra unknowns; the type ladder doesn't need it | — Pending |
 
 ---
 *Last updated: 2026-08-15 after initialization*
