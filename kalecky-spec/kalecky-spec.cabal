@@ -427,7 +427,13 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
+    Kalecky.Operators.Delta
+    Kalecky.Operators.Effect
+    Kalecky.Operators.Expectation
+    Kalecky.Operators.Gap
+    Kalecky.Operators.GrowthRate
     Kalecky.Types.Currency
+    Kalecky.Types.Measure
     Kalecky.Types.Numerics
     Kalecky.Types.Prices.Price
     Kalecky.Types.Prices.PriceIndex
@@ -450,6 +456,11 @@ test-suite kalecky-test
   main-is:
     Main.hs
   other-modules:
+    Kalecky.Operators.DeltaSpec
+    Kalecky.Operators.EffectSpec
+    Kalecky.Operators.ExpectationSpec
+    Kalecky.Operators.GapSpec
+    Kalecky.Operators.GrowthRateSpec
     Kalecky.Types.NumericsSpec
     Kalecky.Types.Prices.PriceSpec
     Kalecky.Types.ValuationSpec

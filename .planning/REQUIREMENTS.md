@@ -27,12 +27,12 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 
 ### Algebraic operators
 
-- [ ] **ALG-01**: `Gap x` is an ORIENTED expectation-vs-realization difference — constructors require an `Expectation` on one side (two realized values are unrepresentable); both orientations exist (`gapER`, `gapRE`) with `evalGap (flip g) == negate (evalGap g)`; a property test proves orientation matters
-- [ ] **ALG-02**: `Gap` is generic over its carrier `x` via a signed-exact-difference class (instanced by Unit/Price/GrowthRate); realized-to-realized differences are `Delta x` (`Operators/Delta.hs`), not Gap — Tasa→Tasa's +20bp types as `Delta (GrowthRate x)`
-- [ ] **ALG-03**: `Expectation (μ :: Measure) x` (measure-indexed, Measure carries the agent) with type-level `Agent = Household | Firm | Government | FinancialSector`; `E^H[x]` and `E^F[x]` are distinct types for the same `x`
-- [ ] **ALG-04**: `Effect responder perturband` is a newtype over exact signed `Rational` encoding ∂responder/∂perturband — no extra runtime data, no floats
-- [ ] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x as an exact signed `Rational`, an independent primitive with a from-observations constructor (`Maybe` on zero base)
-- [ ] **ALG-06**: `mkCommonGrowthRate` returns `Maybe (CommonGrowthRate a b)` — `Just` exactly when the two rates are numerically equal (balanced-growth witness)
+- [x] **ALG-01**: `Gap x` is an ORIENTED expectation-vs-realization difference — constructors require an `Expectation` on one side (two realized values are unrepresentable); both orientations exist (`gapER`, `gapRE`) with `evalGap (flip g) == negate (evalGap g)`; a property test proves orientation matters
+- [x] **ALG-02**: `Gap` is generic over its carrier `x` via a signed-exact-difference class (instanced by Unit/Price/GrowthRate); realized-to-realized differences are `Delta x` (`Operators/Delta.hs`), not Gap — Tasa→Tasa's +20bp types as `Delta (GrowthRate x)`
+- [x] **ALG-03**: `Expectation (μ :: Measure) x` (measure-indexed, Measure carries the agent) with type-level `Agent = Household | Firm | Government | FinancialSector`; `E^H[x]` and `E^F[x]` are distinct types for the same `x`
+- [x] **ALG-04**: `Effect responder perturband` is a newtype over exact signed `Rational` encoding ∂responder/∂perturband — no extra runtime data, no floats
+- [x] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x as an exact signed `Rational`, an independent primitive with a from-observations constructor (`Maybe` on zero base)
+- [x] **ALG-06**: `mkCommonGrowthRate` returns `Maybe (CommonGrowthRate a b)` — `Just` exactly when the two rates are numerically equal (balanced-growth witness)
 
 ### Semantic refinements (equation slice)
 
@@ -100,12 +100,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UNIT-05 | Phase 2 | Complete |
 | UNIT-06 | Phase 2 | Complete |
 | PROOF-01 | Phase 2 | Complete |
-| ALG-01 | Phase 3 | Pending |
-| ALG-02 | Phase 3 | Pending |
-| ALG-03 | Phase 3 | Pending |
-| ALG-04 | Phase 3 | Pending |
-| ALG-05 | Phase 3 | Pending |
-| ALG-06 | Phase 3 | Pending |
+| ALG-01 | Phase 3 | Complete |
+| ALG-02 | Phase 3 | Complete |
+| ALG-03 | Phase 3 | Complete |
+| ALG-04 | Phase 3 | Complete |
+| ALG-05 | Phase 3 | Complete |
+| ALG-06 | Phase 3 | Complete |
 | SEM-01 | Phase 4 | Pending |
 | SEM-02 | Phase 4 | Pending |
 | SEM-03 | Phase 4 | Pending |
