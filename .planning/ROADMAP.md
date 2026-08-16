@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Algebraic Operators** - Economics-agnostic `Gap`, `Expectation`, `Effect`, `GrowthRate` exist, generic and orientation-correct (completed 2026-08-16)
 - [x] **Phase 4: Semantic Refinements** - Economics-aware `Conflict`, `ResponseMultiplier`, `Indexation` refinements exist as zero-cost newtypes (completed 2026-08-16)
 - [x] **Phase 5: Domain Vocabulary & CASO PRUEBA Validation** - Concrete economic types exist and the three CASO PRUEBA scenarios pass exactly (completed 2026-08-16)
-- [ ] **Phase 6: End-Goal Equation Composition** - The boxed nominal wage growth equation composes and its test suite passes
+- [x] **Phase 6: End-Goal Equation Composition** - The boxed nominal wage growth equation composes and its test suite passes (completed 2026-08-16)
 
 ## Phase Details
 
@@ -106,4 +106,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Algebraic Operators | 0/TBD | Complete    | 2026-08-16 |
 | 4. Semantic Refinements | 0/TBD | Complete    | 2026-08-16 |
 | 5. Domain Vocabulary & CASO PRUEBA Validation | 0/TBD | Complete    | 2026-08-16 |
-| 6. End-Goal Equation Composition | 0/TBD | Not started | - |
+| 6. End-Goal Equation Composition | 0/TBD | Complete    | 2026-08-16 |

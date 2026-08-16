@@ -53,7 +53,7 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 - [x] **PROOF-02**: CASO PRUEBA Nivel→Nivel passes: "minimum wage of 20000 COP per hour" constructs and asserts exactly
 - [x] **PROOF-03**: CASO PRUEBA Nivel→Tasa passes: wage 10 → 12 money units per labor unit is exactly a +20 percentage-point growth
 - [x] **PROOF-04**: CASO PRUEBA Tasa→Tasa passes: growth 5% → 5.20% is exactly +20 basis points — with the Gap-of-a-rate vs rate-of-a-rate ambiguity resolved in that increment's co-designed test
-- [ ] **PROOF-05**: End-goal test passes: the boxed nominal wage growth equation (ResponseMultiplier·Gap + ResponseMultiplier·productivity growth + Indexation·inflation) type-checks, composes across its three additive terms without ad-hoc glue, and its property + example tests pass
+- [x] **PROOF-05**: End-goal test passes: the boxed nominal wage growth equation (ResponseMultiplier·Gap + ResponseMultiplier·productivity growth + Indexation·inflation) type-checks, composes across its three additive terms without ad-hoc glue, and its property + example tests pass
 
 ## v2 Requirements
 
@@ -116,7 +116,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROOF-02 | Phase 5 | Complete |
 | PROOF-03 | Phase 5 | Complete |
 | PROOF-04 | Phase 5 | Complete |
-| PROOF-05 | Phase 6 | Pending |
+| PROOF-05 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 26 total
