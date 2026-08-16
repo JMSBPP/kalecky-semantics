@@ -23,16 +23,16 @@ data Delta x = Delta x x
 
 -- | @delta before after@.
 delta :: x -> x -> Delta x
-delta = undefined
+delta = Delta
 
 -- | The earlier observation.
 deltaFrom :: Delta x -> x
-deltaFrom = undefined
+deltaFrom (Delta b _) = b
 
 -- | The later observation.
 deltaTo :: Delta x -> x
-deltaTo = undefined
+deltaTo (Delta _ a) = a
 
 -- | Signed exact evaluation: after − before.
 evalDelta :: (SignedDiff x, Num (Diff x)) => Delta x -> Diff x
-evalDelta = undefined
+evalDelta (Delta b a) = sdiff a b
