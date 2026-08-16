@@ -27,12 +27,12 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 
 ### Algebraic operators
 
-- [ ] **ALG-01**: `Gap x` preserves orientation (`positiveTerm`/`negativeTerm`); a property test proves `Gap a b ≠ Gap b a`
-- [ ] **ALG-02**: `Gap` is generic over any `x` admitting subtraction — it knows no economics and imports no domain modules
-- [ ] **ALG-03**: `Expectation agent x` with `Agent = Household | Firm | Government | FinancialSector`; `E^H[x]` and `E^F[x]` are distinct types for the same `x`
-- [ ] **ALG-04**: `Effect responder perturband` is a newtype over `Number` encoding ∂responder/∂perturband — no extra runtime data
-- [ ] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x of an amount-carrying `Unit` or `Price`
-- [ ] **ALG-06**: `mkCommonGrowthRate` returns `Maybe (CommonGrowthRate a b)` — `Just` only when the two growth rates share a common base
+- [ ] **ALG-01**: `Gap x` is an ORIENTED expectation-vs-realization difference — constructors require an `Expectation` on one side (two realized values are unrepresentable); both orientations exist (`gapER`, `gapRE`) with `evalGap (flip g) == negate (evalGap g)`; a property test proves orientation matters
+- [ ] **ALG-02**: `Gap` is generic over its carrier `x` via a signed-exact-difference class (instanced by Unit/Price/GrowthRate); realized-to-realized differences are `Delta x` (`Operators/Delta.hs`), not Gap — Tasa→Tasa's +20bp types as `Delta (GrowthRate x)`
+- [ ] **ALG-03**: `Expectation (μ :: Measure) x` (measure-indexed, Measure carries the agent) with type-level `Agent = Household | Firm | Government | FinancialSector`; `E^H[x]` and `E^F[x]` are distinct types for the same `x`
+- [ ] **ALG-04**: `Effect responder perturband` is a newtype over exact signed `Rational` encoding ∂responder/∂perturband — no extra runtime data, no floats
+- [ ] **ALG-05**: `GrowthRate x` is the dimensionless relative change Δx/x as an exact signed `Rational`, an independent primitive with a from-observations constructor (`Maybe` on zero base)
+- [ ] **ALG-06**: `mkCommonGrowthRate` returns `Maybe (CommonGrowthRate a b)` — `Just` exactly when the two rates are numerically equal (balanced-growth witness)
 
 ### Semantic refinements (equation slice)
 
