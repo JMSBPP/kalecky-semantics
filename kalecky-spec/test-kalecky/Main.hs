@@ -2,11 +2,13 @@ module Main (main) where
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
+import Kalecky.Operators.ConflictSpec (conflictTests)
 import Kalecky.Operators.DeltaSpec (deltaTests)
 import Kalecky.Operators.EffectSpec (effectTests)
 import Kalecky.Operators.ExpectationSpec (expectationTests)
 import Kalecky.Operators.GapSpec (gapTests)
 import Kalecky.Operators.GrowthRateSpec (growthRateTests)
+import Kalecky.Operators.RefinementSpec (refinementTests)
 import Kalecky.Types.NumericsSpec (scaleTests)
 import Kalecky.Types.Prices.PriceSpec (priceTests)
 import Kalecky.Types.Units.CompoundUnitSpec (compoundUnitTests)
@@ -35,4 +37,6 @@ tests =
     , deltaTests
     , growthRateTests
     , effectTests
+    , conflictTests
+    , refinementTests
     ]

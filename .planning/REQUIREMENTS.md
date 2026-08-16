@@ -36,9 +36,9 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 
 ### Semantic refinements (equation slice)
 
-- [ ] **SEM-01**: `ExpectationsConflict agentA agentB x` is a newtype over `Gap x`, constructible only from two `Expectation`s of the same variable
-- [ ] **SEM-02**: `ResponseMultiplier responder perturband` is a newtype over `Effect` — no redundant stored scalar
-- [ ] **SEM-03**: `Indexation target reference` is a newtype over `Effect (GrowthRate target) (GrowthRate reference)`
+- [x] **SEM-01**: `Conflict` is a kind-indexed family (`Expectations | Distributional | Bargaining`); `ExpectationsConflict a b x` is its Expectations specialization, constructible only from two `Expectation`s of the same variable (NOT a Gap wrapper — Gap requires a realized side)
+- [x] **SEM-02**: `ResponseMultiplier responder perturband` is a newtype over `Effect` — no redundant stored scalar
+- [x] **SEM-03**: `Indexation target reference` is a newtype over `Effect (GrowthRate target) (GrowthRate reference)`
 
 ### Domain instances
 
@@ -106,9 +106,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ALG-04 | Phase 3 | Complete |
 | ALG-05 | Phase 3 | Complete |
 | ALG-06 | Phase 3 | Complete |
-| SEM-01 | Phase 4 | Pending |
-| SEM-02 | Phase 4 | Pending |
-| SEM-03 | Phase 4 | Pending |
+| SEM-01 | Phase 4 | Complete |
+| SEM-02 | Phase 4 | Complete |
+| SEM-03 | Phase 4 | Complete |
 | DOM-01 | Phase 5 | Pending |
 | DOM-02 | Phase 5 | Pending |
 | DOM-03 | Phase 5 | Pending |
