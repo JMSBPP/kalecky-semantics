@@ -39,32 +39,38 @@ newtype GrowthRate x = GrowthRate Rational
 
 -- | Rates may also arrive as estimates — direct exact construction.
 growthRate :: Rational -> GrowthRate x
-growthRate = undefined
+growthRate = GrowthRate
 
 -- | The rate as an exact Rational.
 rate :: GrowthRate x -> Rational
-rate = undefined
+rate (GrowthRate r) = r
 
 -- | Carriers with an exact Rational magnitude.
 class HasMagnitude x where
   magnitude :: x -> Rational
 
 instance HasMagnitude (Unit b) where
-  magnitude = undefined
+  magnitude = fromIntegral . value
 
 instance HasMagnitude (Price v a b) where
-  magnitude = undefined
+  magnitude p =
+    toInteger (value (numerator (priceRatio p)))
+      % toInteger (value (denominator (priceRatio p)))
 
 -- | \((m_{after} - m_{before}) / m_{before}\), exactly; 'Nothing' on a
 -- zero base.
 growthFrom :: HasMagnitude x => x -> x -> Maybe (GrowthRate x)
-growthFrom = undefined
+growthFrom before after
+  | m0 /= 0 = Just (GrowthRate ((magnitude after - m0) / m0))
+  | otherwise = Nothing
+  where
+    m0 = magnitude before
 
 -- | Rates admit signed exact differences — @Delta (GrowthRate x)@ is
 -- the absolute rate-change carrier (+20bp ≡ 1/500).
 instance SignedDiff (GrowthRate x) where
   type Diff (GrowthRate x) = Rational
-  sdiff = undefined
+  sdiff a b = rate a - rate b
 
 -- | Witness that @a@ and @b@ grow at the same rate.
 newtype CommonGrowthRate a b = CommonGrowthRate Rational
@@ -72,8 +78,10 @@ newtype CommonGrowthRate a b = CommonGrowthRate Rational
 
 -- | 'Just' exactly when the two rates are equal.
 mkCommonGrowthRate :: GrowthRate a -> GrowthRate b -> Maybe (CommonGrowthRate a b)
-mkCommonGrowthRate = undefined
+mkCommonGrowthRate a b
+  | rate a == rate b = Just (CommonGrowthRate (rate a))
+  | otherwise = Nothing
 
 -- | The shared rate.
 commonRate :: CommonGrowthRate a b -> Rational
-commonRate = undefined
+commonRate (CommonGrowthRate r) = r
