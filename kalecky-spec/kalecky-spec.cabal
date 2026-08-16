@@ -428,6 +428,7 @@ library kalecky
     src
   exposed-modules:
     Kalecky.Operators.Expectation
+    Kalecky.Operators.Gap
     Kalecky.Types.Currency
     Kalecky.Types.Measure
     Kalecky.Types.Numerics
@@ -453,6 +454,7 @@ test-suite kalecky-test
     Main.hs
   other-modules:
     Kalecky.Operators.ExpectationSpec
+    Kalecky.Operators.GapSpec
     Kalecky.Types.NumericsSpec
     Kalecky.Types.Prices.PriceSpec
     Kalecky.Types.ValuationSpec
