@@ -50,4 +50,9 @@ nominalWageGrowthFrom ::
   Indexation (NominalWage c l) PriceLevel ->
   GrowthRate PriceLevel ->
   GrowthRate (NominalWage c l)
-nominalWageGrowthFrom = undefined
+nominalWageGrowthFrom rm1 g rm2 gLP ind gP =
+  growthRate
+    ( applyResponse rm1 (evalGap g)
+        + applyResponse rm2 (rate gLP)
+        + applyIndexation ind gP
+    )
