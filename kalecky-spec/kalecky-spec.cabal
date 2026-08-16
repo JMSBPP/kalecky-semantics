@@ -428,6 +428,7 @@ library kalecky
     src
   exposed-modules:
     Kalecky.Operators.Delta
+    Kalecky.Operators.Effect
     Kalecky.Operators.Expectation
     Kalecky.Operators.Gap
     Kalecky.Operators.GrowthRate
@@ -456,6 +457,7 @@ test-suite kalecky-test
     Main.hs
   other-modules:
     Kalecky.Operators.DeltaSpec
+    Kalecky.Operators.EffectSpec
     Kalecky.Operators.ExpectationSpec
     Kalecky.Operators.GapSpec
     Kalecky.Operators.GrowthRateSpec
