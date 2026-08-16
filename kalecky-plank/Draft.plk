@@ -1,0 +1,136 @@
+import std::option::Option;
+
+const WAD = struct {};
+const RAY = struct {};
+
+// todo: This takes a enum when available
+const Time = struct {};
+const Month = struct {};
+const MONTH_BASE = 0x0000000000000000000000000000000000000000000000000000000000278d00;
+
+const TimeScale = fn(comptime Basis: type) u256 {
+    if Basis == Month { return MONTH_BASE;}
+    @compile_error("unsupported time basis");
+};
+
+const Labor = struct {};
+const Worker = struct {};
+const WORKER_BASE = 1;
+
+const LaborScale = fn(comptime Basis: type) u256 {
+    if Basis == Worker {return WORKER_BASE;}
+    @compile_error("unsupported labor basis");
+};
+
+const Scale = fn (
+    comptime ScaleFn: fn(comptime Basis: type) u256,
+    comptime Basis: type
+) u256 {
+    return ScaleFn(Basis);
+};
+
+const Unit = fn (
+    comptime ScaleFn: fn(comptime Basis: type) u256,
+    comptime Basis: type
+) type {
+    Scale(ScaleFn, Basis);
+
+    return struct {
+        qty: Option(u256)
+    };
+};
+
+// todo: This is case macth semnatics when available
+const COP = struct {};
+const Currency = fn(comptime T: type) type {
+    if T == COP { return T;}
+    @compile_error("unsupported currency");
+};
+
+const tradeable_base = fn (comptime C: type) u256 {
+    Currency(C); if C == COP { return 50;}
+    @compile_error("unsupported currency");
+};
+
+const Raw = struct {};
+const Thousand = struct {};
+const Million = struct {};
+const Billion = struct {};
+
+const denomination_scale = fn (comptime D: type) u256 {
+    if D == Raw { return 1; }
+    if D == Thousand { return 1000; }
+    if D == Million { return 1000000; }
+    if D == Billion { return 1000000000; }
+
+    @compile_error("unsupported denomination");
+};
+
+const MoneyUnit = fn (comptime C: type,comptime S: type) type {
+    Currency(C);
+    return Unit(denomination_scale, S);
+};
+
+const Nominal = struct {};
+
+// todo: This is case macth semnatics when available
+const Valuation = fn (comptime V: type) type {
+      if V == Nominal { return V;} else {@compile_error("unsupported denomination");}
+};
+
+// todo: This is not doing A /B
+
+const Per = fn (comptime A: type, comptime B: type) type {return struct {};};
+// todo: This is not doing A*B
+const Times = fn (comptime A: type,comptime B: type) type {return struct {};};
+
+const CompoundUnit = fn (
+    comptime Op: fn(comptime A: type, comptime B: type) type,
+    comptime A: type,
+    comptime B: type
+) type {
+    return Op(A, B);
+};
+
+
+// This combinatorically scales too much and the fucntion ends up being too responsable
+// I think is a recurisive type
+
+// desired:
+///////////////////////////////////////////
+// data EconomicUnit			 //
+//     = Money Currency Denomination	 //
+//     | Labor LaborBasis		 //
+//     | Time TimeBasis			 //
+//     | Per EconomicUnit EconomicUnit	 //
+//     | Times EconomicUnit EconomicUnit //
+///////////////////////////////////////////
+
+const EconomicUnit = fn (comptime U: type) type {
+    // temporary closed-world dispatch
+    if U == MoneyUnit(COP, Raw) {
+        return U;
+    }
+
+    if U == Unit(LaborScale, Worker) {
+        return U;
+    }
+
+    // eventually CompoundUnit(...) variants too
+
+    @compile_error("unsupported economic unit");
+};
+
+const EconomicQuantity = fn (comptime V: type,comptime U: type) type {
+    Valuation(V);EconomicUnit(U);
+    return struct {amount: u256};
+};
+
+
+const WorkerUnit = Unit(LaborScale, Worker);
+const COPRaw = MoneyUnit(COP, Raw);
+
+const NominalWageUnit = CompoundUnit(Per,COPRaw,WorkerUnit);
+const NominalWage = EconomicQuantity(Nominal,NominalWageUnit);
+
+const SELECTOR_SET_WAGE = 0xcbd33c60;

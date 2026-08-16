@@ -11,19 +11,19 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: All core project sources (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are tracked in git so every increment lands as a reviewable commit
-- [ ] **INFRA-02**: `Kalecky.*` modules build as a dedicated cabal component with its own test-suite, compilable and testable without rebuilding hevm's main library
+- [x] **INFRA-01**: All core project sources (`kalecky-spec/`, `kalecky-plank/`, `notes/`, `test/`, `foundry.toml`, `remappings.txt`) are tracked in git so every increment lands as a reviewable commit
+- [x] **INFRA-02**: `Kalecky.*` modules build as a dedicated cabal component with its own test-suite, compilable and testable without rebuilding hevm's main library
 
 ### Units (dimensional foundation)
 
 Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives in the Unit itself — `u_s(k) = k · s(b,i)` with `Scale s(b,i) := b^i`; there is no separate quantity wrapper. `Price p(u,v) := c_p(u,v)` is a valuation-parameterized Per-compound unit (this replaces the earlier `EconomicQuantity<valuation, unit>` design).
 
-- [ ] **UNIT-01**: Researcher can construct base vocabulary via smart constructors only — `Scale` (`s(b,i) = b^i`), `MoneyUnit`/`Currency` (`COP`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` — hidden data constructors; a `Unit u_s(k)` carries its Decimal-backed amount `k` at scale `s`
+- [ ] **UNIT-01**: Researcher can construct base vocabulary via smart constructors only — `Scale` (per-unit-kind bases as in `Draft.plk`: `denomination_scale`, `LaborScale`, `TimeScale`), `MoneyUnit`/`Currency` (`COP`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` (Month, Hour) — hidden data constructors; a `Unit u_s(k)` carries its amount `k` as a Natural counting multiples of the per-currency `tradeable_base` (COP: 50) at scale `s`
 - [ ] **UNIT-02**: Units compose as a semigroup under `(·)`; `CompoundUnit` connectors `Per` (ρ: ratio) and `Times` (τ: tensor) compose two units, auto-aligning mismatched scales by exact conversion to a common scale (the `s = h` derivation rule)
-- [ ] **UNIT-03**: Researcher can construct `Price p(u,v)` as a valuation-parameterized `Per`-compound unit with `Valuation = Nominal | Real PriceIndex` threaded through the type
+- [ ] **UNIT-03**: Researcher can construct `Price p(u,v)` as a valuation-parameterized `Per`-compound unit with `Valuation = Nominal | Real PriceIndex` threaded through the type; amounts remain Natural-backed (no fractional representation)
 - [ ] **UNIT-04**: Adding or subtracting units or prices with mismatched dimensions or valuations fails to compile — no `Num` instance; restricted same-dimension operators only
 - [ ] **UNIT-05**: `Per`/`Times` composition produces a correctly composed unit type; canceling dimensions yields a dimensionless ratio
-- [ ] **UNIT-06**: Scale conversion within one unit (e.g., COP Million ↔ COP Thousand via `b^i` exponents) is exact with Decimal arithmetic — no rounding drift
+- [ ] **UNIT-06**: Scale conversion within one unit (e.g., COP Million ↔ COP Thousand, aligning toward the finer denomination) is exact Natural arithmetic — no rounding, no fractional loss
 
 ### Algebraic operators
 
@@ -91,8 +91,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete (01-05 — `./scripts/verify-repo-state.sh` exits 0, prints `INFRA-01: PASS`; all five checks green including the new remappings.txt resolution check; user approved the resulting git history shape) |
+| INFRA-02 | Phase 1 | Complete (01-06 — `cd kalecky-spec && cabal test kalecky-test` passes 2/2 properties; `cabal build kalecky-test --dry-run` from a clean state lists only `lib:kalecky` + `test:kalecky-test`, no bare hevm main library; touch-test + negative control confirm hevm source changes do not rebuild the Kalecky suite) |
 | UNIT-01 | Phase 2 | Pending |
 | UNIT-02 | Phase 2 | Pending |
 | UNIT-03 | Phase 2 | Pending |

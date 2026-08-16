@@ -1,0 +1,6 @@
+packages: .
+with-compiler: ghc-9.8.4
+
+-- work around windows build failure
+-- https://github.com/kazu-yamamoto/crypton-certificate/issues/27
+constraints: crypton-x509-store <1.6.13 || >1.6.13

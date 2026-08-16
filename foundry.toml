@@ -1,0 +1,9 @@
+[profile.default]
+src = "kalecky-plank"
+test = "test/kalecky-plank"
+out = "out"
+libs = ["lib"]
+ffi=true
+
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

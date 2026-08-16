@@ -1,0 +1,5 @@
+forge-std/=lib/forge-std/src/
+plank-foundry-deployer/=lib/plank-foundry-deployer/src/
+plank-monorepo/=lib/plank-monorepo/
+solady/=lib/plank-monorepo/plankc/plank-diff-tests/lib/solady/src/
+test-helpers=kalecky-plank/test/
