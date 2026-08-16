@@ -428,6 +428,7 @@ library kalecky
     src
   exposed-modules:
     Kalecky.Types.Numerics
+    Kalecky.Types.Units.Unit
   build-depends:
     base
 
@@ -442,10 +443,12 @@ test-suite kalecky-test
     Main.hs
   other-modules:
     Kalecky.Types.NumericsSpec
+    Kalecky.Types.Units.UnitSpec
   build-depends:
     base,
     kalecky,
     QuickCheck,
+    quickcheck-classes,
     tasty,
     tasty-hunit,
     tasty-quickcheck

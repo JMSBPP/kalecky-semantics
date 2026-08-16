@@ -6,10 +6,14 @@
 --   3. Denomination scales are strictly monotone Raw < Thousand < Million < Billion.
 --   4. Coarser denominations are exact multiples of finer ones
 --      (the law that makes s = h alignment lossless downstream).
-module Kalecky.Types.NumericsSpec (scaleTests) where
+module Kalecky.Types.NumericsSpec
+  ( scaleTests
+  , SomeBasis (..)
+  , someScale
+  ) where
 
 import Numeric.Natural (Natural)
-import Test.QuickCheck (Arbitrary (..), arbitraryBoundedEnum, oneof, (==>))
+import Test.QuickCheck (Arbitrary (..), arbitraryBoundedEnum, arbitrarySizedNatural, oneof, (==>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.QuickCheck (testProperty)
@@ -23,11 +27,20 @@ data SomeBasis
   | SomeTime TimeBasis
   deriving (Show)
 
+-- | The scale of any basis, whatever its kind.
+someScale :: SomeBasis -> Scale
+someScale = \case
+  SomeDenomination d -> denominationScale d
+  SomeLabor l -> laborScale l
+  SomeTime t -> timeScale t
+
 scaleFactorOf :: SomeBasis -> Natural
-scaleFactorOf = \case
-  SomeDenomination d -> scaleFactor (denominationScale d)
-  SomeLabor l -> scaleFactor (laborScale l)
-  SomeTime t -> scaleFactor (timeScale t)
+scaleFactorOf = scaleFactor . someScale
+
+-- Orphan: QuickCheck 2.14.3 ships no Arbitrary Natural.
+instance Arbitrary Natural where
+  arbitrary = arbitrarySizedNatural
+  shrink = map fromInteger . filter (>= 0) . shrink . toInteger
 
 instance Arbitrary Denomination where
   arbitrary = arbitraryBoundedEnum

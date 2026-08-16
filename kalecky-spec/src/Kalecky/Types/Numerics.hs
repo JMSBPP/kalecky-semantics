@@ -28,6 +28,12 @@ import Numeric.Natural (Natural)
 newtype Scale = Scale Natural
   deriving (Eq, Ord, Show)
 
+-- | Scales compose multiplicatively (the scale half of the unit
+-- semigroup @u_s(k) · v_h(l)@). Positivity is preserved: a product of
+-- factors @>= 1@ is @>= 1@.
+instance Semigroup Scale where
+  (<>) = undefined
+
 -- | Extract the Natural multiplier of a 'Scale'.
 scaleFactor :: Scale -> Natural
 scaleFactor (Scale n) = n
