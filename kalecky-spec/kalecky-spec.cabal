@@ -433,6 +433,8 @@ library kalecky
     Kalecky.Operators.Expectation
     Kalecky.Operators.Gap
     Kalecky.Operators.GrowthRate
+    Kalecky.Operators.Indexation
+    Kalecky.Operators.ResponseMultiplier
     Kalecky.Types.Currency
     Kalecky.Types.Measure
     Kalecky.Types.Numerics
@@ -463,6 +465,7 @@ test-suite kalecky-test
     Kalecky.Operators.ExpectationSpec
     Kalecky.Operators.GapSpec
     Kalecky.Operators.GrowthRateSpec
+    Kalecky.Operators.RefinementSpec
     Kalecky.Types.NumericsSpec
     Kalecky.Types.Prices.PriceSpec
     Kalecky.Types.ValuationSpec
