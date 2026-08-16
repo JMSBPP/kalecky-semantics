@@ -18,12 +18,12 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives in the Unit itself — `u_s(k) = k · s(b,i)` with `Scale s(b,i) := b^i`; there is no separate quantity wrapper. `Price p(u,v) := c_p(u,v)` is a valuation-parameterized Per-compound unit (this replaces the earlier `EconomicQuantity<valuation, unit>` design).
 
-- [ ] **UNIT-01**: Researcher can construct base vocabulary via smart constructors only — `Scale` (`s(b,i) = b^i`), `MoneyUnit`/`Currency` (`COP`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` — hidden data constructors; a `Unit u_s(k)` carries its Decimal-backed amount `k` at scale `s`
+- [ ] **UNIT-01**: Researcher can construct base vocabulary via smart constructors only — `Scale` (per-unit-kind bases as in `Draft.plk`: `denomination_scale`, `LaborScale`, `TimeScale`), `MoneyUnit`/`Currency` (`COP`, `USD`), `LaborUnit` (`Worker | LaborHour`), `TimeUnit` (Month, Hour) — hidden data constructors; a `Unit u_s(k)` carries its amount `k` as a Natural counting multiples of the per-currency `tradeable_base` (COP: 50) at scale `s`
 - [ ] **UNIT-02**: Units compose as a semigroup under `(·)`; `CompoundUnit` connectors `Per` (ρ: ratio) and `Times` (τ: tensor) compose two units, auto-aligning mismatched scales by exact conversion to a common scale (the `s = h` derivation rule)
-- [ ] **UNIT-03**: Researcher can construct `Price p(u,v)` as a valuation-parameterized `Per`-compound unit with `Valuation = Nominal | Real PriceIndex` threaded through the type
+- [ ] **UNIT-03**: Researcher can construct `Price p(u,v)` as a valuation-parameterized `Per`-compound unit with `Valuation = Nominal | Real PriceIndex` threaded through the type; amounts remain Natural-backed (no fractional representation)
 - [ ] **UNIT-04**: Adding or subtracting units or prices with mismatched dimensions or valuations fails to compile — no `Num` instance; restricted same-dimension operators only
 - [ ] **UNIT-05**: `Per`/`Times` composition produces a correctly composed unit type; canceling dimensions yields a dimensionless ratio
-- [ ] **UNIT-06**: Scale conversion within one unit (e.g., COP Million ↔ COP Thousand via `b^i` exponents) is exact with Decimal arithmetic — no rounding drift
+- [ ] **UNIT-06**: Scale conversion within one unit (e.g., COP Million ↔ COP Thousand, aligning toward the finer denomination) is exact Natural arithmetic — no rounding, no fractional loss
 
 ### Algebraic operators
 
