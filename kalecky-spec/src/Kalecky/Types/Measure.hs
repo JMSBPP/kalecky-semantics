@@ -28,13 +28,13 @@ class KnownMeasure (m :: Measure) where
   measureOf :: Proxy m -> Measure
 
 instance KnownMeasure (AgentMeasure Household) where
-  measureOf _ = undefined
+  measureOf _ = AgentMeasure Household
 
 instance KnownMeasure (AgentMeasure Firm) where
-  measureOf _ = undefined
+  measureOf _ = AgentMeasure Firm
 
 instance KnownMeasure (AgentMeasure Government) where
-  measureOf _ = undefined
+  measureOf _ = AgentMeasure Government
 
 instance KnownMeasure (AgentMeasure FinancialSector) where
-  measureOf _ = undefined
+  measureOf _ = AgentMeasure FinancialSector

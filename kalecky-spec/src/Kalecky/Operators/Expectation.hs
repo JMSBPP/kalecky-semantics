@@ -23,12 +23,12 @@ newtype Expectation (m :: Measure) x = Expectation x
 -- | Form an expectation under measure @μ@ (pick @μ@ by type application
 -- or annotation).
 expectation :: x -> Expectation m x
-expectation = undefined
+expectation = Expectation
 
 -- | The believed value.
 expected :: Expectation m x -> x
-expected = undefined
+expected (Expectation x) = x
 
 -- | \(\mathbb{E}^{\mu}\) maps over its carrier.
 instance Functor (Expectation m) where
-  fmap = undefined
+  fmap f (Expectation x) = Expectation (f x)
