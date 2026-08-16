@@ -22,6 +22,7 @@ module Kalecky.Types.Units.Unit
   , value
   , align
   , add
+  , scaleBy
   ) where
 
 import Numeric.Natural (Natural)
@@ -69,6 +70,11 @@ align u@(Unit k s) v@(Unit l h)
   where
     sf = scaleFactor s
     hf = scaleFactor h
+
+-- | Scalar action: multiply the amount by a Natural, scale unchanged.
+-- Enables exact rational price addition (n/d + n'/d').
+scaleBy :: Natural -> Unit basis -> Unit basis
+scaleBy = undefined
 
 -- | Aligned addition. Cross-kind addition is already a type error via
 -- the basis parameter; within kind, scales auto-align exactly.
