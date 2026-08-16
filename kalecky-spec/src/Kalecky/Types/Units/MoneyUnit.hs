@@ -8,12 +8,17 @@ module Kalecky.Types.Units.MoneyUnit
   ( Denomination (..)
   , denominationExponent
   , denominationScale
+  , MoneyBasis
+  , moneyBasis
+  , moneyUnit
   ) where
 
+import Data.Proxy (Proxy (..))
 import Numeric.Natural (Natural)
 
-import Kalecky.Types.Numerics (Scale, scale)
-import Kalecky.Types.Units.Unit (HasScale (..))
+import Kalecky.Types.Currency (Currency, KnownCurrency (..), tradeableBase)
+import Kalecky.Types.Numerics (Scale, scale, scaleFactor)
+import Kalecky.Types.Units.Unit (HasScale (..), Unit, unit)
 
 -- | Money denominations. Ordering reflects coarseness: 'Raw' is finest.
 data Denomination = Raw | Thousand | Million | Billion
@@ -35,3 +40,28 @@ denominationScale d = case scale 10 (denominationExponent d) of
 
 instance HasScale Denomination where
   scaleOf = denominationScale
+
+-- | The basis of a money unit: a denomination tagged by a type-level
+-- currency (@MoneyUnit = MoneyUnit { currency, unit }@ with the
+-- currency lifted to the type level so cross-currency arithmetic fails
+-- to compile).
+newtype MoneyBasis (c :: Currency) = MoneyBasis Denomination
+  deriving (Eq, Show)
+
+-- | Basis constructor (the denomination is the only runtime data).
+moneyBasis :: Denomination -> MoneyBasis c
+moneyBasis = MoneyBasis
+
+instance HasScale (MoneyBasis c) where
+  scaleOf (MoneyBasis d) = denominationScale d
+
+-- | Construct money: @Just@ iff @qty · denominationScale@ is a
+-- multiple of the currency's tradeable base. Currencies without a
+-- tradeable base (USD, deferred) never construct.
+moneyUnit ::
+  forall c.
+  KnownCurrency c =>
+  Denomination ->
+  Natural ->
+  Maybe (Unit (MoneyBasis c))
+moneyUnit = undefined

@@ -11,13 +11,16 @@ import Kalecky.Types.Numerics (Scale, scale)
 import Kalecky.Types.Units.Unit (HasScale (..))
 
 -- | Time bases. Bases of one kind are exactly alignable (coarser is an
--- exact multiple of finer), like money denominations.
-data TimeBasis = Month
+-- exact multiple of finer), like money denominations:
+-- @MONTH_BASE = 720 × HOUR_BASE@ exactly.
+data TimeBasis = Hour | Month
   deriving (Eq, Ord, Show, Enum, Bounded)
 
--- | @TimeScale@: @MONTH_BASE = 2592000@ (seconds in a 30-day month).
+-- | @TimeScale@: @HOUR_BASE = 3600@ (seconds in an hour, user decision
+-- 2026-08-15); @MONTH_BASE = 2592000@ (seconds in a 30-day month).
 timeScale :: TimeBasis -> Scale
 timeScale b = case b of
+  Hour -> undefined
   Month -> known 2592000
   where
     known n = case scale n 1 of

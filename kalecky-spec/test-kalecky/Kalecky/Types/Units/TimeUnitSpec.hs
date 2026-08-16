@@ -13,8 +13,17 @@ timeUnitTests =
   testGroup
     "TimeUnit"
     [ testGroup
+        "laws"
+        [ testCase "time bases exactly alignable: MONTH_BASE mod HOUR_BASE == 0" $
+            scaleFactor (timeScale Month) `mod` scaleFactor (timeScale Hour) @?= 0
+        ]
+    , testGroup
         "examples"
         [ testCase "MONTH_BASE = 2_592_000" $
             scaleFactor (timeScale Month) @?= 2_592_000
+        , testCase "HOUR_BASE = 3600" $
+            scaleFactor (timeScale Hour) @?= 3600
+        , testCase "Month = 720 hours" $
+            scaleFactor (timeScale Month) `div` scaleFactor (timeScale Hour) @?= 720
         ]
     ]

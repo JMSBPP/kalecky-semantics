@@ -427,6 +427,7 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
+    Kalecky.Types.Currency
     Kalecky.Types.Numerics
     Kalecky.Types.Units.LaborUnit
     Kalecky.Types.Units.MoneyUnit
