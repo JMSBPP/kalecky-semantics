@@ -55,15 +55,24 @@ instance Semigroup (Unit basis) where
 -- | The raw magnitude @qty · scaleFactor@ — the invariant alignment
 -- must preserve (UNIT-06: no rounding drift).
 value :: Unit basis -> Natural
-value = undefined
+value (Unit k s) = k * scaleFactor s
 
 -- | The @s = h@ rule, within one kind: bring both operands to the
 -- FINER scale by exact conversion (multiply only, never divide).
 -- @Just@ iff the coarser scale is an exact multiple of the finer.
 align :: Unit basis -> Unit basis -> Maybe (Unit basis, Unit basis)
-align = undefined
+align u@(Unit k s) v@(Unit l h)
+  | sf == hf = Just (u, v)
+  | sf > hf, sf `mod` hf == 0 = Just (Unit (k * (sf `div` hf)) h, v)
+  | hf > sf, hf `mod` sf == 0 = Just (u, Unit (l * (hf `div` sf)) s)
+  | otherwise = Nothing
+  where
+    sf = scaleFactor s
+    hf = scaleFactor h
 
 -- | Aligned addition. Cross-kind addition is already a type error via
 -- the basis parameter; within kind, scales auto-align exactly.
 add :: Unit basis -> Unit basis -> Maybe (Unit basis)
-add = undefined
+add u v = do
+  (Unit k s, Unit l _) <- align u v
+  pure (Unit (k + l) s)

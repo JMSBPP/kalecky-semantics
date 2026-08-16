@@ -24,7 +24,7 @@ module Kalecky.Types.Units.CompoundUnit
 
 import Numeric.Natural (Natural)
 
-import Kalecky.Types.Units.Unit (Unit)
+import Kalecky.Types.Units.Unit (Unit, value)
 
 -- | ρ: a ratio of units, operands kept whole.
 data Per a b = Per (Unit a) (Unit b)
@@ -54,4 +54,9 @@ timesFactors (Times u v) = (u, v)
 -- with a non-zero denominator. Naturals only — no fractional result
 -- exists, so inexact ratios are @Nothing@.
 cancel :: Per b b -> Maybe Natural
-cancel = undefined
+cancel (Per u v)
+  | dv > 0, nu `mod` dv == 0 = Just (nu `div` dv)
+  | otherwise = Nothing
+  where
+    nu = value u
+    dv = value v
