@@ -42,18 +42,20 @@ wage ::
   Natural ->
   Unit l ->
   Maybe (Wage v c l)
-wage = undefined
+wage d k labor = do
+  money <- moneyUnit d k
+  pure (price (per money labor))
 
 -- | Household shape (gapER): \(\mathbb{E}^H[w] - w\).
 householdWageGap ::
   Expectation (AgentMeasure Household) (Wage v c l) ->
   Wage v c l ->
   Gap (AgentMeasure Household) (Wage v c l)
-householdWageGap = undefined
+householdWageGap = gapER
 
 -- | Firm shape (gapRE): \(w - \mathbb{E}^F[w]\).
 firmWageGap ::
   Wage v c l ->
   Expectation (AgentMeasure Firm) (Wage v c l) ->
   Gap (AgentMeasure Firm) (Wage v c l)
-firmWageGap = undefined
+firmWageGap = gapRE
