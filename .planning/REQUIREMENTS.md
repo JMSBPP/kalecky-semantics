@@ -42,17 +42,17 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 
 ### Domain instances
 
-- [ ] **DOM-01**: `Wage` is a `Price` over `Per MoneyUnit LaborUnit`; `NominalWage` is a `Wage` with `Nominal` valuation — money per labor, not a price index
-- [ ] **DOM-02**: `RealWage` is the `Wage` with valuation `Real PriceIndex` — `NominalWage` deflated by `PriceLevel`
-- [ ] **DOM-03**: `LaborProductivity` is `Ratio Output LaborService` with `GrowthRate` definable on it
-- [ ] **DOM-04**: Household and firm real-wage expectation gap constructors produce `Gap RealWage` values with opposite orientations
+- [x] **DOM-01**: `Wage` is a `Price` over `Per MoneyUnit LaborUnit`; `NominalWage` is a `Wage` with `Nominal` valuation — money per labor, not a price index
+- ~~**DOM-02**~~ DESCOPED to v2 (user decision 2026-08-16): RealWage/deflation deferred — wage gaps run over the (valuation-parametric) `Wage` price directly
+- [x] **DOM-03**: `LaborProductivity` is NOT formally defined (user decision 2026-08-16) — it enters the equation as a phantom growth-rate carrier: `GrowthRate LaborProductivity`
+- [x] **DOM-04**: Household and firm wage-expectation gap constructors produce `Gap` values over the `Wage` price with opposite orientations (gapER/gapRE shapes)
 
 ### Proof (validation)
 
 - [x] **PROOF-01**: Every shipped type has QuickCheck law properties (via quickcheck-classes where applicable), co-designed and approved before implementation
-- [ ] **PROOF-02**: CASO PRUEBA Nivel→Nivel passes: "minimum wage of 20000 COP per hour" constructs and asserts exactly
-- [ ] **PROOF-03**: CASO PRUEBA Nivel→Tasa passes: wage 10 → 12 money units per labor unit is exactly a +20 percentage-point growth
-- [ ] **PROOF-04**: CASO PRUEBA Tasa→Tasa passes: growth 5% → 5.20% is exactly +20 basis points — with the Gap-of-a-rate vs rate-of-a-rate ambiguity resolved in that increment's co-designed test
+- [x] **PROOF-02**: CASO PRUEBA Nivel→Nivel passes: "minimum wage of 20000 COP per hour" constructs and asserts exactly
+- [x] **PROOF-03**: CASO PRUEBA Nivel→Tasa passes: wage 10 → 12 money units per labor unit is exactly a +20 percentage-point growth
+- [x] **PROOF-04**: CASO PRUEBA Tasa→Tasa passes: growth 5% → 5.20% is exactly +20 basis points — with the Gap-of-a-rate vs rate-of-a-rate ambiguity resolved in that increment's co-designed test
 - [ ] **PROOF-05**: End-goal test passes: the boxed nominal wage growth equation (ResponseMultiplier·Gap + ResponseMultiplier·productivity growth + Indexation·inflation) type-checks, composes across its three additive terms without ad-hoc glue, and its property + example tests pass
 
 ## v2 Requirements
@@ -109,13 +109,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEM-01 | Phase 4 | Complete |
 | SEM-02 | Phase 4 | Complete |
 | SEM-03 | Phase 4 | Complete |
-| DOM-01 | Phase 5 | Pending |
-| DOM-02 | Phase 5 | Pending |
-| DOM-03 | Phase 5 | Pending |
-| DOM-04 | Phase 5 | Pending |
-| PROOF-02 | Phase 5 | Pending |
-| PROOF-03 | Phase 5 | Pending |
-| PROOF-04 | Phase 5 | Pending |
+| DOM-01 | Phase 5 | Complete |
+| DOM-02 | — | Descoped to v2 |
+| DOM-03 | Phase 5 | Complete |
+| DOM-04 | Phase 5 | Complete |
+| PROOF-02 | Phase 5 | Complete |
+| PROOF-03 | Phase 5 | Complete |
+| PROOF-04 | Phase 5 | Complete |
 | PROOF-05 | Phase 6 | Pending |
 
 **Coverage:**

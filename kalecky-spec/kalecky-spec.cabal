@@ -440,6 +440,7 @@ library kalecky
     Kalecky.Types.Numerics
     Kalecky.Types.Prices.Price
     Kalecky.Types.Prices.PriceIndex
+    Kalecky.Types.Prices.Wage
     Kalecky.Types.Valuation
     Kalecky.Types.Units.CompoundUnit
     Kalecky.Types.Units.LaborUnit
@@ -459,6 +460,7 @@ test-suite kalecky-test
   main-is:
     Main.hs
   other-modules:
+    Kalecky.CasoPruebaSpec
     Kalecky.Operators.ConflictSpec
     Kalecky.Operators.DeltaSpec
     Kalecky.Operators.EffectSpec
@@ -468,6 +470,7 @@ test-suite kalecky-test
     Kalecky.Operators.RefinementSpec
     Kalecky.Types.NumericsSpec
     Kalecky.Types.Prices.PriceSpec
+    Kalecky.Types.Prices.WageSpec
     Kalecky.Types.ValuationSpec
     Kalecky.Types.Units.CompoundUnitSpec
     Kalecky.Types.Units.LaborUnitSpec
