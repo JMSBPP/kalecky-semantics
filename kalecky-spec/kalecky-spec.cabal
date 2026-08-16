@@ -427,6 +427,7 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
+    Kalecky.Operators.Conflict
     Kalecky.Operators.Delta
     Kalecky.Operators.Effect
     Kalecky.Operators.Expectation
@@ -456,6 +457,7 @@ test-suite kalecky-test
   main-is:
     Main.hs
   other-modules:
+    Kalecky.Operators.ConflictSpec
     Kalecky.Operators.DeltaSpec
     Kalecky.Operators.EffectSpec
     Kalecky.Operators.ExpectationSpec

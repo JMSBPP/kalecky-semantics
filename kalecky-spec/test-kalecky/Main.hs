@@ -2,6 +2,7 @@ module Main (main) where
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
+import Kalecky.Operators.ConflictSpec (conflictTests)
 import Kalecky.Operators.DeltaSpec (deltaTests)
 import Kalecky.Operators.EffectSpec (effectTests)
 import Kalecky.Operators.ExpectationSpec (expectationTests)
@@ -35,4 +36,5 @@ tests =
     , deltaTests
     , growthRateTests
     , effectTests
+    , conflictTests
     ]
