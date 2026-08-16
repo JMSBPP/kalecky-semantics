@@ -41,12 +41,16 @@ class SignedDiff x where
 -- | Units difference by raw magnitude (qty · scale), exactly.
 instance SignedDiff (Unit b) where
   type Diff (Unit b) = Integer
-  sdiff = undefined
+  sdiff a b = toInteger (value a) - toInteger (value b)
 
 -- | Prices difference as exact rationals of their value-ratios.
 instance SignedDiff (Price v a b) where
   type Diff (Price v a b) = Rational
-  sdiff = undefined
+  sdiff p q = ratio p - ratio q
+    where
+      ratio x =
+        toInteger (value (numerator (priceRatio x)))
+          % toInteger (value (denominator (priceRatio x)))
 
 -- | An oriented expectation-vs-realization difference under measure @m@.
 data Gap (m :: Measure) x
@@ -56,16 +60,20 @@ data Gap (m :: Measure) x
 
 -- | Expected − realized (household shape).
 gapER :: Expectation m x -> x -> Gap m x
-gapER = undefined
+gapER = GapER
 
 -- | Realized − expected (firm shape).
 gapRE :: x -> Expectation m x -> Gap m x
-gapRE = undefined
+gapRE = GapRE
 
 -- | Reverse orientation: @evalGap (flipGap g) == negate (evalGap g)@.
 flipGap :: Gap m x -> Gap m x
-flipGap = undefined
+flipGap = \case
+  GapER e r -> GapRE r e
+  GapRE r e -> GapER e r
 
 -- | Signed exact evaluation (lhs − rhs in the gap's orientation).
 evalGap :: (SignedDiff x, Num (Diff x)) => Gap m x -> Diff x
-evalGap = undefined
+evalGap = \case
+  GapER e r -> sdiff (expected e) r
+  GapRE r e -> sdiff r (expected e)
