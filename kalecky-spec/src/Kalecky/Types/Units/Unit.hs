@@ -11,7 +11,8 @@
 --
 -- The data constructor is hidden (UNIT-01: smart constructors only);
 -- 'unit' is the only way in, and it takes the basis value so the
--- scale's provenance is always a per-basis scale function.
+-- scale's provenance is always a per-basis scale function. 'HasScale'
+-- instances live beside each basis type in its own module.
 module Kalecky.Types.Units.Unit
   ( Unit
   , qty
@@ -22,15 +23,7 @@ module Kalecky.Types.Units.Unit
 
 import Numeric.Natural (Natural)
 
-import Kalecky.Types.Numerics
-  ( Denomination
-  , LaborBasis
-  , Scale
-  , TimeBasis
-  , denominationScale
-  , laborScale
-  , timeScale
-  )
+import Kalecky.Types.Numerics (Scale)
 
 -- | An amount @k@ at a scale @s@, tagged by its basis kind.
 data Unit basis = Unit Natural Scale
@@ -47,15 +40,6 @@ unitScale (Unit _ s) = s
 -- | Bases whose scale comes from a per-basis scale function.
 class HasScale basis where
   scaleOf :: basis -> Scale
-
-instance HasScale Denomination where
-  scaleOf = denominationScale
-
-instance HasScale LaborBasis where
-  scaleOf = laborScale
-
-instance HasScale TimeBasis where
-  scaleOf = timeScale
 
 -- | Construct @u_{scaleOf b}(k)@ — the only way to build a 'Unit'.
 unit :: HasScale basis => basis -> Natural -> Unit basis

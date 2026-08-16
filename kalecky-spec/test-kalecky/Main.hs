@@ -3,6 +3,9 @@ module Main (main) where
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
 import Kalecky.Types.NumericsSpec (scaleTests)
+import Kalecky.Types.Units.LaborUnitSpec (laborUnitTests)
+import Kalecky.Types.Units.MoneyUnitSpec (moneyUnitTests)
+import Kalecky.Types.Units.TimeUnitSpec (timeUnitTests)
 import Kalecky.Types.Units.UnitSpec (unitTests)
 
 main :: IO ()
@@ -13,4 +16,7 @@ tests =
   testGroup "kalecky"
     [ scaleTests
     , unitTests
+    , moneyUnitTests
+    , laborUnitTests
+    , timeUnitTests
     ]

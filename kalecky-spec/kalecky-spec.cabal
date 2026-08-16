@@ -428,6 +428,9 @@ library kalecky
     src
   exposed-modules:
     Kalecky.Types.Numerics
+    Kalecky.Types.Units.LaborUnit
+    Kalecky.Types.Units.MoneyUnit
+    Kalecky.Types.Units.TimeUnit
     Kalecky.Types.Units.Unit
   build-depends:
     base
@@ -443,6 +446,9 @@ test-suite kalecky-test
     Main.hs
   other-modules:
     Kalecky.Types.NumericsSpec
+    Kalecky.Types.Units.LaborUnitSpec
+    Kalecky.Types.Units.MoneyUnitSpec
+    Kalecky.Types.Units.TimeUnitSpec
     Kalecky.Types.Units.UnitSpec
   build-depends:
     base,

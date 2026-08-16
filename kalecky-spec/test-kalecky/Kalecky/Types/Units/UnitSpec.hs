@@ -1,13 +1,5 @@
 -- | Co-designed Unit laws and examples (approved 2026-08-15).
 --
--- Laws:
---   1. Semigroup associativity for Scale (quickcheck-classes lawset).
---   2. Semigroup associativity for Unit basis (quickcheck-classes lawset).
---   3. qty is multiplicative under (<>).
---   4. scale is multiplicative under (<>).
---   5. scale positivity survives (<>).
---   6. Construction: unit b k has qty k and scale (scaleOf b).
---
 -- Cross-kind products (unit Thousand 2 <> unit Worker 5) are a type
 -- error by construction — enforced by the basis type parameter, not a
 -- runtime check.
@@ -15,25 +7,17 @@ module Kalecky.Types.Units.UnitSpec (unitTests) where
 
 import Data.Proxy (Proxy (..))
 import Numeric.Natural (Natural)
-import Test.QuickCheck (Arbitrary (..), listOf1)
+import Test.QuickCheck (Arbitrary (..))
 import Test.QuickCheck.Classes (Laws (..), semigroupLaws)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.QuickCheck (testProperty)
 
-import Kalecky.Types.Numerics
-  ( Denomination (..)
-  , LaborBasis (..)
-  , Scale
-  , scaleFactor
-  )
-import Kalecky.Types.NumericsSpec (SomeBasis, someScale)
+import Kalecky.Types.Numerics (scaleFactor)
+import Kalecky.Types.NumericsSpec ()
+import Kalecky.Types.Units.LaborUnit (WorkerBasis (..))
+import Kalecky.Types.Units.MoneyUnit (Denomination (..))
 import Kalecky.Types.Units.Unit (Unit, qty, scaleOf, unit, unitScale)
-
-instance Arbitrary Scale where
-  arbitrary = do
-    bs <- listOf1 arbitrary
-    pure (foldr1 (<>) (map (someScale :: SomeBasis -> Scale) bs))
 
 instance Arbitrary (Unit Denomination) where
   arbitrary = unit <$> arbitrary <*> arbitrary
@@ -48,8 +32,7 @@ unitTests =
     "Unit"
     [ testGroup
         "laws"
-        [ lawsToTree (semigroupLaws (Proxy :: Proxy Scale))
-        , lawsToTree (semigroupLaws (Proxy :: Proxy (Unit Denomination)))
+        [ lawsToTree (semigroupLaws (Proxy :: Proxy (Unit Denomination)))
         , testProperty "qty is multiplicative: qty (u <> v) == qty u * qty v" $
             \(u :: Unit Denomination) (v :: Unit Denomination) ->
               qty (u <> v) == qty u * qty v

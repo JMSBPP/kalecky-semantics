@@ -1,25 +1,16 @@
--- | Dimensional kernel: 'Scale' and the per-basis scale functions.
+-- | Dimensional kernel: 'Scale'.
 --
 -- \(s (b,i) := b^{i}\)
 --
--- A 'Scale' is obtainable ONLY through a per-basis scale function,
--- mirroring @Draft.plk@'s @Scale(ScaleFn, Basis) = ScaleFn(Basis)@:
--- money denominations via 'denominationScale', labor bases via
--- 'laborScale' (@WORKER_BASE@), time bases via 'timeScale'
--- (@MONTH_BASE = 0x278d00 = 2592000@, seconds in a 30-day month).
---
--- The data constructor of 'Scale' is deliberately hidden (UNIT-01:
--- smart constructors only).
+-- A 'Scale' is an exact positive multiplier. Its data constructor is
+-- hidden (UNIT-01: smart constructors only): construct via 'scale'
+-- (checked, @b >= 1@) or a per-basis scale function in the unit
+-- modules ("Kalecky.Types.Units.MoneyUnit", "Kalecky.Types.Units.LaborUnit",
+-- "Kalecky.Types.Units.TimeUnit").
 module Kalecky.Types.Numerics
   ( Scale
+  , scale
   , scaleFactor
-  , Denomination (..)
-  , denominationExponent
-  , denominationScale
-  , LaborBasis (..)
-  , laborScale
-  , TimeBasis (..)
-  , timeScale
   ) where
 
 import Numeric.Natural (Natural)
@@ -34,38 +25,13 @@ newtype Scale = Scale Natural
 instance Semigroup Scale where
   Scale a <> Scale b = Scale (a * b)
 
+-- | \(s(b,i) = b^i\), defined only for base @b >= 1@ — positivity by
+-- construction.
+scale :: Natural -> Natural -> Maybe Scale
+scale b i
+  | b >= 1 = Just (Scale (b ^ i))
+  | otherwise = Nothing
+
 -- | Extract the Natural multiplier of a 'Scale'.
 scaleFactor :: Scale -> Natural
 scaleFactor (Scale n) = n
-
--- | Money denominations. Ordering reflects coarseness: 'Raw' is finest.
-data Denomination = Raw | Thousand | Million | Billion
-  deriving (Eq, Ord, Show, Enum, Bounded)
-
--- | Power-of-ten exponent per denomination: 0, 3, 6, 9.
-denominationExponent :: Denomination -> Natural
-denominationExponent = \case
-  Raw -> 0
-  Thousand -> 3
-  Million -> 6
-  Billion -> 9
-
--- | @denomination_scale@: Raw=1, Thousand=10^3, Million=10^6, Billion=10^9.
-denominationScale :: Denomination -> Scale
-denominationScale d = Scale (10 ^ denominationExponent d)
-
--- | Labor bases. 'LaborHour' arrives with the base-units increment.
-data LaborBasis = Worker
-  deriving (Eq, Ord, Show, Enum, Bounded)
-
--- | @LaborScale@: @WORKER_BASE = 1@.
-laborScale :: LaborBasis -> Scale
-laborScale Worker = Scale 1
-
--- | Time bases. 'Hour' arrives with the base-units increment (HOUR_BASE open question).
-data TimeBasis = Month
-  deriving (Eq, Ord, Show, Enum, Bounded)
-
--- | @TimeScale@: @MONTH_BASE = 2592000@ (seconds in a 30-day month).
-timeScale :: TimeBasis -> Scale
-timeScale Month = Scale 2592000
