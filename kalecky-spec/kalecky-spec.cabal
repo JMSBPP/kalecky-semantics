@@ -427,7 +427,6 @@ library kalecky
   hs-source-dirs:
     src
   exposed-modules:
-    Kalecky.Smoke
     Kalecky.Types.Numerics
   build-depends:
     base

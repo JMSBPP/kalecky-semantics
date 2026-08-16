@@ -30,7 +30,7 @@ newtype Scale = Scale Natural
 
 -- | Extract the Natural multiplier of a 'Scale'.
 scaleFactor :: Scale -> Natural
-scaleFactor = undefined
+scaleFactor (Scale n) = n
 
 -- | Money denominations. Ordering reflects coarseness: 'Raw' is finest.
 data Denomination = Raw | Thousand | Million | Billion
@@ -38,11 +38,15 @@ data Denomination = Raw | Thousand | Million | Billion
 
 -- | Power-of-ten exponent per denomination: 0, 3, 6, 9.
 denominationExponent :: Denomination -> Natural
-denominationExponent = undefined
+denominationExponent = \case
+  Raw -> 0
+  Thousand -> 3
+  Million -> 6
+  Billion -> 9
 
 -- | @denomination_scale@: Raw=1, Thousand=10^3, Million=10^6, Billion=10^9.
 denominationScale :: Denomination -> Scale
-denominationScale = undefined
+denominationScale d = Scale (10 ^ denominationExponent d)
 
 -- | Labor bases. 'LaborHour' arrives with the base-units increment.
 data LaborBasis = Worker
@@ -50,7 +54,7 @@ data LaborBasis = Worker
 
 -- | @LaborScale@: @WORKER_BASE = 1@.
 laborScale :: LaborBasis -> Scale
-laborScale = undefined
+laborScale Worker = Scale 1
 
 -- | Time bases. 'Hour' arrives with the base-units increment (HOUR_BASE open question).
 data TimeBasis = Month
@@ -58,4 +62,4 @@ data TimeBasis = Month
 
 -- | @TimeScale@: @MONTH_BASE = 2592000@ (seconds in a 30-day month).
 timeScale :: TimeBasis -> Scale
-timeScale = undefined
+timeScale Month = Scale 2592000
