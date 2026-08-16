@@ -429,6 +429,8 @@ library kalecky
   exposed-modules:
     Kalecky.Types.Currency
     Kalecky.Types.Numerics
+    Kalecky.Types.Prices.PriceIndex
+    Kalecky.Types.Valuation
     Kalecky.Types.Units.CompoundUnit
     Kalecky.Types.Units.LaborUnit
     Kalecky.Types.Units.MoneyUnit
@@ -448,6 +450,7 @@ test-suite kalecky-test
     Main.hs
   other-modules:
     Kalecky.Types.NumericsSpec
+    Kalecky.Types.ValuationSpec
     Kalecky.Types.Units.CompoundUnitSpec
     Kalecky.Types.Units.LaborUnitSpec
     Kalecky.Types.Units.MoneyUnitSpec
