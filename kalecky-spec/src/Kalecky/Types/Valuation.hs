@@ -23,7 +23,7 @@ class KnownValuation (v :: Valuation) where
   valuationOf :: Proxy v -> Valuation
 
 instance KnownValuation Nominal where
-  valuationOf _ = undefined
+  valuationOf _ = Nominal
 
 instance KnownPriceIndex p => KnownValuation ('Real p) where
-  valuationOf _ = undefined
+  valuationOf _ = Real (priceIndexOf (Proxy :: Proxy p))

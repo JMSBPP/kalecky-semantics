@@ -20,4 +20,4 @@ class KnownPriceIndex (p :: PriceIndex) where
   priceIndexOf :: Proxy p -> PriceIndex
 
 instance KnownPriceIndex CPI where
-  priceIndexOf _ = undefined
+  priceIndexOf _ = CPI
