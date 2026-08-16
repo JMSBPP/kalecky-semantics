@@ -36,7 +36,7 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 
 ### Semantic refinements (equation slice)
 
-- [ ] **SEM-01**: `ExpectationsConflict agentA agentB x` is a newtype over `Gap x`, constructible only from two `Expectation`s of the same variable
+- [ ] **SEM-01**: `Conflict` is a kind-indexed family (`Expectations | Distributional | Bargaining`); `ExpectationsConflict a b x` is its Expectations specialization, constructible only from two `Expectation`s of the same variable (NOT a Gap wrapper — Gap requires a realized side)
 - [ ] **SEM-02**: `ResponseMultiplier responder perturband` is a newtype over `Effect` — no redundant stored scalar
 - [ ] **SEM-03**: `Indexation target reference` is a newtype over `Effect (GrowthRate target) (GrowthRate reference)`
 
