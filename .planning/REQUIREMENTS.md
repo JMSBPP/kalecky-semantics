@@ -43,9 +43,9 @@ Design basis (from `kalecky-spec/src/Kalecky/types/**` notes): the amount lives 
 ### Domain instances
 
 - [ ] **DOM-01**: `Wage` is a `Price` over `Per MoneyUnit LaborUnit`; `NominalWage` is a `Wage` with `Nominal` valuation — money per labor, not a price index
-- [ ] **DOM-02**: `RealWage` is the `Wage` with valuation `Real PriceIndex` — `NominalWage` deflated by `PriceLevel`
-- [ ] **DOM-03**: `LaborProductivity` is `Ratio Output LaborService` with `GrowthRate` definable on it
-- [ ] **DOM-04**: Household and firm real-wage expectation gap constructors produce `Gap RealWage` values with opposite orientations
+- ~~**DOM-02**~~ DESCOPED to v2 (user decision 2026-08-16): RealWage/deflation deferred — wage gaps run over the (valuation-parametric) `Wage` price directly
+- [ ] **DOM-03**: `LaborProductivity` is NOT formally defined (user decision 2026-08-16) — it enters the equation as a phantom growth-rate carrier: `GrowthRate LaborProductivity`
+- [ ] **DOM-04**: Household and firm wage-expectation gap constructors produce `Gap` values over the `Wage` price with opposite orientations (gapER/gapRE shapes)
 
 ### Proof (validation)
 
@@ -110,7 +110,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEM-02 | Phase 4 | Complete |
 | SEM-03 | Phase 4 | Complete |
 | DOM-01 | Phase 5 | Pending |
-| DOM-02 | Phase 5 | Pending |
+| DOM-02 | — | Descoped to v2 |
 | DOM-03 | Phase 5 | Pending |
 | DOM-04 | Phase 5 | Pending |
 | PROOF-02 | Phase 5 | Pending |
