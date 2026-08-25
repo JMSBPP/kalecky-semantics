@@ -45,21 +45,33 @@ library
     Kalecky.Operators.Gap
     Kalecky.Operators.GrowthRate
     Kalecky.Operators.Indexation
+    Kalecky.Operators.Intensity
     Kalecky.Operators.ResponseMultiplier
     Kalecky.Types.Currency
+    Kalecky.Types.Groups.Capital
+    Kalecky.Types.Groups.Education
+    Kalecky.Types.Groups.Labor
+    Kalecky.Types.Groups.Population
+    Kalecky.Types.Groups.Region
     Kalecky.Types.Measure
     Kalecky.Types.Numerics
+    Kalecky.Types.Panel.Panel
+    Kalecky.Types.Panel.Period
     Kalecky.Types.Prices.Price
     Kalecky.Types.Prices.PriceIndex
     Kalecky.Types.Prices.Wage
+    Kalecky.Types.Stocks.StateVector
+    Kalecky.Types.Stocks.Stock
     Kalecky.Types.Valuation
     Kalecky.Types.Units.CompoundUnit
+    Kalecky.Types.Units.IndexUnit
     Kalecky.Types.Units.LaborUnit
     Kalecky.Types.Units.MoneyUnit
     Kalecky.Types.Units.TimeUnit
     Kalecky.Types.Units.Unit
   build-depends:
-    base >= 4.19 && < 5
+    base >= 4.19 && < 5,
+    containers
 
 test-suite kalecky-test
   import: shared
@@ -69,18 +81,25 @@ test-suite kalecky-test
   other-modules:
     Kalecky.CasoPruebaSpec
     Kalecky.Equations.WageSettingSpec
+    Kalecky.Types.Groups.GroupsSpec
     Kalecky.Operators.ConflictSpec
     Kalecky.Operators.DeltaSpec
     Kalecky.Operators.EffectSpec
     Kalecky.Operators.ExpectationSpec
     Kalecky.Operators.GapSpec
     Kalecky.Operators.GrowthRateSpec
+    Kalecky.Operators.IntensitySpec
     Kalecky.Operators.RefinementSpec
     Kalecky.Types.NumericsSpec
+    Kalecky.Types.Panel.PanelSpec
+    Kalecky.Types.Panel.PeriodSpec
     Kalecky.Types.Prices.PriceSpec
     Kalecky.Types.Prices.WageSpec
+    Kalecky.Types.Stocks.StateVectorSpec
+    Kalecky.Types.Stocks.StockSpec
     Kalecky.Types.ValuationSpec
     Kalecky.Types.Units.CompoundUnitSpec
+    Kalecky.Types.Units.IndexUnitSpec
     Kalecky.Types.Units.LaborUnitSpec
     Kalecky.Types.Units.MoneyUnitSpec
     Kalecky.Types.Units.TimeUnitSpec

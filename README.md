@@ -21,10 +21,13 @@ nominalWageGrowthFrom rm1 householdGap rm2 productivityGrowth ind inflation
 ```
 src/Kalecky/
 ├── Types/        Numerics (Scale), Currency, Valuation, Measure,
-│   ├── Units/    Unit, MoneyUnit, LaborUnit, TimeUnit, CompoundUnit
-│   └── Prices/   Price, PriceIndex, Wage
+│   ├── Units/    Unit, MoneyUnit, LaborUnit, TimeUnit, IndexUnit, CompoundUnit
+│   ├── Prices/   Price, PriceIndex, Wage
+│   ├── Groups/   partition enums: Population, Capital, Labor, Education, Region
+│   ├── Panel/    Period, Panel (rectangular, economics-free)
+│   └── Stocks/   StateVector (reconciled decomposition), Stock (role-tagged series)
 ├── Operators/    Expectation, Gap, Delta, GrowthRate, Effect,
-│                 Conflict, ResponseMultiplier, Indexation
+│                 Conflict, ResponseMultiplier, Indexation, Intensity (Density cells)
 └── Equations/    WageSetting
 test/             mirrors src; test/should-fail/ holds compile-fail boundaries
 notes/            the specification (INCOME_DISTRIBUTION.md)
@@ -40,4 +43,5 @@ scripts/check-compile-fail.sh    # every should-fail file must be rejected
 ## Status
 
 v1.0 shipped: see `.planning/MILESTONES.md`. Planning artifacts live in
-`.planning/` (GSD).
+`.planning/` (GSD). State vectors, stocks and intensity: see
+`docs/superpowers/specs/2026-08-16-state-vectors-and-intensity-design.md`.

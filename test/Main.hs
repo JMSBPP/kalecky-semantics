@@ -10,11 +10,18 @@ import Kalecky.Operators.EffectSpec (effectTests)
 import Kalecky.Operators.ExpectationSpec (expectationTests)
 import Kalecky.Operators.GapSpec (gapTests)
 import Kalecky.Operators.GrowthRateSpec (growthRateTests)
+import Kalecky.Operators.IntensitySpec (intensityTests)
 import Kalecky.Operators.RefinementSpec (refinementTests)
+import Kalecky.Types.Groups.GroupsSpec (groupsTests)
 import Kalecky.Types.NumericsSpec (scaleTests)
+import Kalecky.Types.Panel.PanelSpec (panelTests)
+import Kalecky.Types.Panel.PeriodSpec (periodTests)
 import Kalecky.Types.Prices.PriceSpec (priceTests)
 import Kalecky.Types.Prices.WageSpec (wageTests)
+import Kalecky.Types.Stocks.StateVectorSpec (stateVectorTests)
+import Kalecky.Types.Stocks.StockSpec (stockTests)
 import Kalecky.Types.Units.CompoundUnitSpec (compoundUnitTests)
+import Kalecky.Types.Units.IndexUnitSpec (indexUnitTests)
 import Kalecky.Types.ValuationSpec (valuationTests)
 import Kalecky.Types.Units.LaborUnitSpec (laborUnitTests)
 import Kalecky.Types.Units.MoneyUnitSpec (moneyUnitTests)
@@ -45,4 +52,11 @@ tests =
     , wageTests
     , casoPruebaTests
     , wageSettingTests
+    , indexUnitTests
+    , groupsTests
+    , periodTests
+    , panelTests
+    , stateVectorTests
+    , stockTests
+    , intensityTests
     ]

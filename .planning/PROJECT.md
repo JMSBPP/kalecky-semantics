@@ -33,6 +33,8 @@ v1 is done when this equation (marked "This is the end goal test" in `notes/INCO
 
 ### Active (v2 backlog — define via /gsd:new-milestone)
 
+- [x] State vectors, stocks, intensity (2026-08-16, feature/state-vectors): per-stock partition enums incl. Region, reconciled `StateVector`, role-tagged `Stock`, `intensity` → `Density` — spec + plan under `docs/superpowers/`
+
 - [ ] RealWage: NominalWage deflated by a PriceLevel with numeric PriceIndex content
 - [ ] Remaining refinements: Elasticity (+Normalization), DistributionalEffect/NetDistributionalEffect, Distributional/Bargaining Conflict constructors
 - [ ] Functional income distribution matrix (ψ mechanisms, wage/profit shares, informal sector)
